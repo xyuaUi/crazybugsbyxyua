@@ -136,9 +136,22 @@
         /* GAME TITLE */
         .game-title{position:absolute;top:4%;left:50%;transform:translateX(-50%);font-family:'Fredoka One',cursive;font-size:clamp(24px,4vw,52px);color:#fff;text-shadow:3px 3px 0 #C07800,0 0 24px rgba(255,200,60,.4);letter-spacing:.06em;white-space:nowrap;z-index:10;animation:popIn .5s cubic-bezier(.36,1.5,.5,1) forwards;opacity:0;}
         @keyframes popIn{from{opacity:0;transform:translateX(-50%) scale(.6)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+
+        /* ══ WINDOWSTAB OVERLAY ══ */
+        #windowstab{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;pointer-events:none;user-select:none;-webkit-user-select:none;touch-action:none;background:url("assets/windowstab.png") no-repeat center center / 100% 100%;image-rendering:crisp-edges;}
+
+        /* ══ CUSTOM POINTER ══ */
+        *{cursor:none!important;}
+        #custom-pointer{position:fixed;top:0;left:0;width:32px;height:32px;background:url("assets/pointer.png") no-repeat top left / contain;z-index:99999;pointer-events:none;user-select:none;-webkit-user-select:none;transform:translate(-2px,-2px);will-change:transform;}
     </style>
 </head>
 <body>
+
+<!-- ══ WINDOWSTAB: overlay Windows 11, pointer-events:none, tidak ganggu game ══ -->
+<div id="windowstab"></div>
+
+<!-- ══ CUSTOM POINTER: mengikuti mouse/touch ══ -->
+<div id="custom-pointer"></div>
 
 <div class="bg"></div>
 <div class="shadow-floor"></div>
@@ -291,6 +304,25 @@
         document.body.style.top = '0px !important';
         document.documentElement.style.top = '0px !important';
     });
+
+    // ══ CUSTOM POINTER: ikuti mouse & touch ══
+    const ptr = document.getElementById("custom-pointer");
+    // Mouse
+    document.addEventListener("mousemove", function(e){
+        ptr.style.transform = "translate(" + (e.clientX - 2) + "px, " + (e.clientY - 2) + "px)";
+    }, {passive: true});
+    // Touch (gunakan touch pertama sebagai pointer)
+    document.addEventListener("touchmove", function(e){
+        const t = e.touches[0];
+        ptr.style.transform = "translate(" + (t.clientX - 2) + "px, " + (t.clientY - 2) + "px)";
+    }, {passive: true});
+    document.addEventListener("touchstart", function(e){
+        const t = e.touches[0];
+        ptr.style.transform = "translate(" + (t.clientX - 2) + "px, " + (t.clientY - 2) + "px)";
+    }, {passive: true});
+    // Sembunyikan pointer saat mouse keluar layar
+    document.addEventListener("mouseleave", function(){ ptr.style.opacity = "0"; });
+    document.addEventListener("mouseenter", function(){ ptr.style.opacity = "1"; });
 </script>
 </body>
 </html>
