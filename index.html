@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="orientation" content="landscape">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-starturl" content=".">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow">
+    <title>Crazy Bugs</title>
+    <meta name="application-name" content="Crazy Bugs">
+    <meta name="theme-color" content="#F5A623">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/icons/icon-96x96.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box;border:none!important;outline:none!important;-webkit-tap-highlight-color:transparent!important;tap-highlight-color:transparent!important;}
+        html,body{width:100vw;height:100vh;position:fixed!important;top:0!important;left:0!important;right:0!important;bottom:0!important;overflow:hidden!important;background:#F5A623!important;font-family:'Fredoka One',cursive;}
+        ::-webkit-search-decoration,::-webkit-search-cancel-button,::-webkit-search-results-button,::-webkit-search-results-decoration{display:none!important;}
+        :-webkit-full-screen{width:100%!important;height:100%!important;top:0!important;left:0!important;}
+        :fullscreen{width:100%!important;height:100%!important;top:0!important;left:0!important;}
+
+        .bg{position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 55% 45%,#FFBE52 0%,#F5A623 45%,#E8901A 100%);z-index:0;}
+        .shadow-floor{position:absolute;bottom:18%;left:50%;transform:translateX(-18%);width:420px;height:50px;background:rgba(160,80,0,.18);border-radius:50%;filter:blur(18px);z-index:1;}
+
+        /* CENTER SCENE */
+        .center-scene{position:absolute;left:50%;bottom:14%;transform:translateX(-20%);z-index:5;display:flex;flex-direction:column;align-items:center;animation:float 3.5s ease-in-out infinite;}
+        @keyframes float{0%,100%{transform:translateX(-20%) translateY(0)}50%{transform:translateX(-20%) translateY(-6px)}}
+        .sofa-container{position:relative;width:420px;height:280px;}
+        .sofa{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:380px;height:140px;}
+        .sofa-seat{position:absolute;bottom:28px;left:20px;right:20px;height:60px;background:linear-gradient(180deg,#A8958A,#8B7B72);border-radius:14px 14px 8px 8px;box-shadow:0 4px 0 #6B5C55,inset 0 2px 4px rgba(255,255,255,.15);}
+        .sofa-back{position:absolute;bottom:82px;left:28px;right:28px;height:60px;background:linear-gradient(180deg,#B0A098,#9A8880);border-radius:16px 16px 4px 4px;box-shadow:0 -2px 8px rgba(0,0,0,.12),inset 0 2px 4px rgba(255,255,255,.18);}
+        .sofa-arm-left{position:absolute;bottom:28px;left:0;width:50px;height:90px;background:linear-gradient(180deg,#B8A59B,#9A8880);border-radius:20px 14px 10px 14px;box-shadow:-2px 4px 0 #6B5C55;}
+        .sofa-arm-right{position:absolute;bottom:28px;right:0;width:50px;height:90px;background:linear-gradient(180deg,#B8A59B,#9A8880);border-radius:14px 20px 14px 10px;box-shadow:2px 4px 0 #6B5C55;}
+        .sofa-leg-left{position:absolute;bottom:0;left:55px;width:22px;height:30px;background:#7A6B62;border-radius:4px 4px 8px 8px;}
+        .sofa-leg-right{position:absolute;bottom:0;right:55px;width:22px;height:30px;background:#7A6B62;border-radius:4px 4px 8px 8px;}
+
+        /* CAT */
+        .cat{position:absolute;bottom:80px;left:68px;width:145px;height:165px;z-index:10;}
+        .cat-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:110px;height:115px;background:radial-gradient(ellipse at 40% 30%,#F5C260,#E8A820 60%,#D4940E);border-radius:50% 50% 45% 45%;box-shadow:inset -8px -12px 0 rgba(0,0,0,.08),inset 6px 8px 0 rgba(255,255,255,.12);}
+        .cat-belly{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:60px;height:65px;background:radial-gradient(ellipse,#FDE8B0,#F5D27A 80%);border-radius:50%;}
+        .cat-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:100px;height:95px;background:radial-gradient(ellipse at 45% 35%,#F5C260,#E8A820 65%,#D4940E);border-radius:50% 50% 48% 48%;box-shadow:inset -6px -8px 0 rgba(0,0,0,.07);}
+        .cat-ear-left{position:absolute;top:-18px;left:12px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:28px solid #E8A820;filter:drop-shadow(-1px -1px 0 #D4940E);}
+        .cat-ear-left::after{content:'';position:absolute;top:6px;left:-8px;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:18px solid #F5B8C0;}
+        .cat-ear-right{position:absolute;top:-18px;right:12px;width:0;height:0;border-left:16px solid transparent;border-right:16px solid transparent;border-bottom:28px solid #E8A820;filter:drop-shadow(1px -1px 0 #D4940E);}
+        .cat-ear-right::after{content:'';position:absolute;top:6px;left:-8px;width:0;height:0;border-left:10px solid transparent;border-right:10px solid transparent;border-bottom:18px solid #F5B8C0;}
+        .cat-eye-left,.cat-eye-right{position:absolute;top:36px;width:18px;height:20px;background:#2A1A0A;border-radius:50%;box-shadow:0 0 0 3px #fff,inset 2px 2px 0 rgba(255,255,255,.5);}
+        .cat-eye-left{left:18px;}.cat-eye-right{right:18px;}
+        .cat-nose{position:absolute;top:60px;left:50%;transform:translateX(-50%);width:12px;height:8px;background:#E8829A;border-radius:50%;}
+        .cat-paw-left,.cat-paw-right{position:absolute;bottom:14px;width:38px;height:28px;background:radial-gradient(ellipse,#F5C260,#E8A820);border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.1);}
+        .cat-paw-left{left:4px;}.cat-paw-right{right:4px;}
+
+        /* CORGI */
+        .corgi{position:absolute;bottom:78px;right:50px;width:155px;height:175px;z-index:10;}
+        .corgi-body{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:115px;height:120px;background:radial-gradient(ellipse at 45% 30%,#F0C060,#E09820 65%,#C88010);border-radius:50% 50% 45% 45%;box-shadow:inset -8px -12px 0 rgba(0,0,0,.08);}
+        .corgi-chest{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);width:65px;height:70px;background:radial-gradient(ellipse,#FEFEFE,#F0EDE8 80%);border-radius:50%;}
+        .corgi-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:108px;height:100px;background:radial-gradient(ellipse at 45% 35%,#F0C060,#E09820 65%,#C88010);border-radius:48% 48% 50% 50%;}
+        .corgi-face{position:absolute;top:25px;left:50%;transform:translateX(-50%);width:72px;height:65px;background:#FEFEFE;border-radius:50% 50% 55% 55%;}
+        .corgi-ear-left{position:absolute;top:-12px;left:8px;width:28px;height:38px;background:linear-gradient(180deg,#F0C060,#D89018);border-radius:50% 50% 30% 30%;transform:rotate(-15deg);}
+        .corgi-ear-right{position:absolute;top:-12px;right:8px;width:28px;height:38px;background:linear-gradient(180deg,#F0C060,#D89018);border-radius:50% 50% 30% 30%;transform:rotate(15deg);}
+        .corgi-eye-left,.corgi-eye-right{position:absolute;top:32px;width:20px;height:22px;background:#1A0A00;border-radius:50%;box-shadow:0 0 0 3px #fff,inset 2px 2px 0 rgba(255,255,255,.5);}
+        .corgi-eye-left{left:18px;}.corgi-eye-right{right:18px;}
+        .corgi-nose{position:absolute;top:56px;left:50%;transform:translateX(-50%);width:22px;height:14px;background:#1A0A00;border-radius:50%;}
+        .corgi-paw-left,.corgi-paw-right{position:absolute;bottom:12px;width:40px;height:30px;background:radial-gradient(ellipse,#F0C060,#E09820);border-radius:50%;box-shadow:0 3px 0 rgba(0,0,0,.1);}
+        .corgi-paw-left{left:2px;}.corgi-paw-right{right:2px;}
+        .paw-toes{display:flex;gap:3px;position:absolute;bottom:4px;left:50%;transform:translateX(-50%);}
+        .paw-toes span{width:8px;height:10px;background:#FDE8B0;border-radius:50%;}
+
+        /* MENU */
+        .menu-list{position:absolute;left:9%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:4px;z-index:10;}
+        .menu-item{font-family:'Fredoka One',cursive;font-size:clamp(28px,4.2vw,52px);color:#fff;text-shadow:3px 3px 0 #C07800,-1px -1px 0 #C07800,5px 5px 12px rgba(140,70,0,.25);cursor:pointer;transition:transform .12s,color .12s;line-height:1.12;user-select:none;animation:fadeInLeft .4s ease forwards;opacity:0;}
+        .menu-item:hover{transform:translateX(10px) scale(1.04);color:#FFF5C0;}
+        .menu-item.active{color:#FFF5C0;text-shadow:3px 3px 0 #A06000,0 0 20px rgba(255,220,60,.4),5px 5px 12px rgba(140,70,0,.3);}
+        .menu-item:nth-child(1){animation-delay:.05s}.menu-item:nth-child(2){animation-delay:.10s}
+        .menu-item:nth-child(4){animation-delay:.18s}.menu-item:nth-child(5){animation-delay:.24s}
+        .menu-item:nth-child(6){animation-delay:.30s}.menu-item:nth-child(7){animation-delay:.36s}
+        .menu-gap{height:22px;}
+        @keyframes fadeInLeft{from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}}
+
+        /* PANELS RIGHT */
+        .panels-right{position:absolute;right:2.5%;top:14%;display:flex;flex-direction:column;gap:14px;z-index:10;width:200px;animation:slideInRight .5s ease .2s forwards;opacity:0;}
+        @keyframes slideInRight{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+        .forum-card{background:#4A6FD4;border-radius:16px;padding:10px 12px;display:flex;align-items:center;gap:8px;cursor:pointer;transition:transform .1s;box-shadow:0 4px 0 #2A4FA8,0 6px 16px rgba(0,0,0,.2);overflow:hidden;}
+        .forum-card:hover{transform:scale(1.03);}
+        .forum-card-text{font-family:'Fredoka One',cursive;font-size:20px;color:#fff;line-height:1.15;text-shadow:1px 1px 0 rgba(0,0,0,.2);}
+        .forum-mascot{width:62px;height:62px;flex-shrink:0;margin-left:auto;}
+        .promo-card{border-radius:14px;overflow:hidden;width:200px;height:248px;position:relative;box-shadow:0 4px 0 rgba(0,0,0,.3),0 8px 20px rgba(0,0,0,.25);cursor:pointer;transition:transform .1s;}
+        .promo-card:hover{transform:scale(1.02);}
+        .promo-bg{position:absolute;inset:0;background:linear-gradient(160deg,#1A0A08,#2D0808 40%,#1A0000);}
+        .promo-red-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:120px;height:140px;background:radial-gradient(ellipse,rgba(200,0,0,.5),transparent 70%);filter:blur(8px);}
+        .promo-figure{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:80px;height:130px;}
+        .promo-figure-body{position:absolute;top:30px;left:50%;transform:translateX(-50%);width:55px;height:90px;background:linear-gradient(180deg,#1A1A1A,#0A0A0A);border-radius:30% 30% 20% 20%;box-shadow:0 0 20px rgba(200,0,0,.3);}
+        .promo-figure-head{position:absolute;top:0;left:50%;transform:translateX(-50%);width:42px;height:42px;background:#0F0F0F;border-radius:50%;box-shadow:0 0 15px rgba(200,0,0,.5);}
+        .promo-eyes{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:flex;gap:8px;}
+        .promo-eye{width:10px;height:10px;background:#CC0000;border-radius:50%;box-shadow:0 0 8px #FF0000,0 0 16px rgba(255,0,0,.5);}
+        .promo-horns{position:absolute;top:-10px;left:50%;transform:translateX(-50%);width:50px;display:flex;justify-content:space-between;}
+        .promo-horn{width:8px;height:20px;background:linear-gradient(180deg,#880000,#440000);border-radius:50% 50% 20% 20%;transform:rotate(-10deg);}
+        .promo-horn:last-child{transform:rotate(10deg);}
+        .promo-arms{position:absolute;top:50px;left:50%;transform:translateX(-50%);width:90px;display:flex;justify-content:space-between;}
+        .promo-arm{width:14px;height:40px;background:#1A1A1A;border-radius:8px;}
+        .promo-title{position:absolute;bottom:28px;left:0;right:0;padding:0 12px;}
+        .promo-title-text{font-family:'Fredoka One',cursive;font-size:28px;line-height:1.0;color:#fff;text-shadow:0 0 12px rgba(200,0,0,.5);letter-spacing:.02em;}
+        .promo-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;}
+        .promo-dot{width:18px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;}
+        .promo-dot.active{background:rgba(255,255,255,.85);}
+
+        /* BOTTOM BAR */
+        .bottom-bar{position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(90deg,#F5A000,#F5A623);border-top:3px solid rgba(255,255,255,.3)!important;display:flex;align-items:center;justify-content:space-between;padding:0 12px;z-index:20;box-shadow:0 -2px 12px rgba(0,0,0,.15);}
+        .bottom-left,.bottom-right{display:flex;align-items:center;gap:6px;}
+        .item-shop-btn{display:flex;align-items:center;gap:6px;background:transparent;cursor:pointer;padding:4px 12px 4px 4px;border-radius:8px;transition:background .1s;position:relative;}
+        .item-shop-btn:hover{background:rgba(255,255,255,.15);}
+        .item-shop-icon{width:40px;height:40px;background:linear-gradient(135deg,#FF8C42,#FF6B1A);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 0 rgba(0,0,0,.2);position:relative;}
+        .item-shop-label{font-family:'Fredoka One',cursive;font-size:17px;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.2);letter-spacing:.04em;}
+        .badge-new{position:absolute;top:-4px;right:-4px;background:#FF3D3D;color:#fff;font-family:'Fredoka One',cursive;font-size:9px;padding:1px 4px;border-radius:6px;text-transform:uppercase;box-shadow:0 1px 4px rgba(0,0,0,.3);}
+        .currency-chip{display:flex;align-items:center;gap:5px;background:rgba(0,0,0,.12);border-radius:20px;padding:4px 12px 4px 4px;cursor:pointer;transition:background .1s;}
+        .currency-chip:hover{background:rgba(0,0,0,.2);}
+        .currency-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 0 rgba(0,0,0,.15);}
+        .bone-icon{background:linear-gradient(135deg,#DDD8C8,#BEB8A8);}
+        .cash-icon{background:linear-gradient(135deg,#5DC85D,#3AAA3A);}
+        .currency-amount{font-family:'Fredoka One',cursive;font-size:18px;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.2);min-width:28px;}
+        .player-profile{display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.1);border-radius:20px;padding:3px 10px 3px 3px;cursor:pointer;}
+        .player-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#F5C260,#E09820);display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 0 rgba(0,0,0,.2);border:2px solid rgba(255,255,255,.4)!important;position:relative;}
+        .player-info{display:flex;flex-direction:column;}
+        .player-name{font-family:'Fredoka One',cursive;font-size:16px;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.15);}
+        .player-xp-bar{width:70px;height:5px;background:rgba(0,0,0,.2);border-radius:3px;margin-top:2px;overflow:hidden;}
+        .player-xp-fill{height:100%;width:30%;background:linear-gradient(90deg,#5DC85D,#3AAA3A);border-radius:3px;}
+        .mic-btn{width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,.15);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .1s;}
+        .mic-btn:hover{background:rgba(0,0,0,.25);}
+        .party-slots{display:flex;align-items:center;gap:4px;background:rgba(0,0,0,.12);border-radius:20px;padding:4px 10px;}
+        .party-icon{font-size:20px;}
+        .party-count{font-family:'Fredoka One',cursive;font-size:15px;color:#fff;text-shadow:1px 1px 0 rgba(0,0,0,.15);}
+
+        /* GAME TITLE */
+        .game-title{position:absolute;top:4%;left:50%;transform:translateX(-50%);font-family:'Fredoka One',cursive;font-size:clamp(24px,4vw,52px);color:#fff;text-shadow:3px 3px 0 #C07800,0 0 24px rgba(255,200,60,.4);letter-spacing:.06em;white-space:nowrap;z-index:10;animation:popIn .5s cubic-bezier(.36,1.5,.5,1) forwards;opacity:0;}
+        @keyframes popIn{from{opacity:0;transform:translateX(-50%) scale(.6)}to{opacity:1;transform:translateX(-50%) scale(1)}}
+    </style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="shadow-floor"></div>
+
+<div class="game-title">🐛 CRAZY BUGS 🐛</div>
+
+<nav class="menu-list">
+    <div class="menu-item active">QUICK MATCH</div>
+    <div class="menu-item">CUSTOM GAME</div>
+    <div class="menu-gap"></div>
+    <div class="menu-item">TUTORIAL</div>
+    <div class="menu-item">LOCKER</div>
+    <div class="menu-item">SETTINGS</div>
+    <div class="menu-item">EXIT GAME</div>
+</nav>
+
+<div class="center-scene">
+    <div class="sofa-container">
+        <div class="sofa">
+            <div class="sofa-leg-left"></div>
+            <div class="sofa-leg-right"></div>
+            <div class="sofa-seat"></div>
+            <div class="sofa-back"></div>
+            <div class="sofa-arm-left"></div>
+            <div class="sofa-arm-right"></div>
+        </div>
+        <div class="cat">
+            <div class="cat-head">
+                <div class="cat-ear-left"></div>
+                <div class="cat-ear-right"></div>
+                <div class="cat-eye-left"></div>
+                <div class="cat-eye-right"></div>
+                <div class="cat-nose"></div>
+            </div>
+            <div class="cat-body">
+                <div class="cat-belly"></div>
+                <div class="cat-paw-left"><div class="paw-toes"><span></span><span></span><span></span></div></div>
+                <div class="cat-paw-right"><div class="paw-toes"><span></span><span></span><span></span></div></div>
+            </div>
+        </div>
+        <div class="corgi">
+            <div class="corgi-head">
+                <div class="corgi-ear-left"></div>
+                <div class="corgi-ear-right"></div>
+                <div class="corgi-face">
+                    <div class="corgi-eye-left"></div>
+                    <div class="corgi-eye-right"></div>
+                    <div class="corgi-nose"></div>
+                </div>
+            </div>
+            <div class="corgi-body">
+                <div class="corgi-chest"></div>
+                <div class="corgi-paw-left"><div class="paw-toes"><span></span><span></span><span></span></div></div>
+                <div class="corgi-paw-right"><div class="paw-toes"><span></span><span></span><span></span></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panels-right">
+    <div class="forum-card">
+        <div class="forum-card-text">OFFICIAL<br>FORUM</div>
+        <svg class="forum-mascot" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="32" cy="42" rx="16" ry="14" fill="#F0C060"/>
+            <ellipse cx="32" cy="46" rx="9" ry="9" fill="#FEFEFE"/>
+            <ellipse cx="32" cy="24" rx="17" ry="15" fill="#F0C060"/>
+            <ellipse cx="32" cy="30" rx="11" ry="9" fill="#FEFEFE"/>
+            <ellipse cx="18" cy="14" rx="6" ry="10" fill="#E09820" transform="rotate(-15 18 14)"/>
+            <ellipse cx="46" cy="14" rx="6" ry="10" fill="#E09820" transform="rotate(15 46 14)"/>
+            <circle cx="25" cy="22" r="4" fill="#1A0A00"/><circle cx="39" cy="22" r="4" fill="#1A0A00"/>
+            <circle cx="26" cy="21" r="1.5" fill="#fff"/><circle cx="40" cy="21" r="1.5" fill="#fff"/>
+            <ellipse cx="32" cy="30" rx="4" ry="3" fill="#1A0A00"/>
+            <rect x="22" y="48" width="20" height="12" rx="2" fill="#4A6FD4"/>
+            <rect x="18" y="59" width="28" height="3" rx="1" fill="#3A5FC4"/>
+            <rect x="24" y="50" width="16" height="8" rx="1" fill="#6A8FE4"/>
+        </svg>
+    </div>
+    <div class="promo-card">
+        <div class="promo-bg"></div>
+        <div class="promo-red-glow"></div>
+        <div class="promo-figure">
+            <div class="promo-figure-head">
+                <div class="promo-horns"><div class="promo-horn"></div><div class="promo-horn"></div></div>
+                <div class="promo-eyes"><div class="promo-eye"></div><div class="promo-eye"></div></div>
+            </div>
+            <div class="promo-figure-body">
+                <div class="promo-arms"><div class="promo-arm"></div><div class="promo-arm"></div></div>
+            </div>
+        </div>
+        <div class="promo-title"><div class="promo-title-text">THE<br>LAMB</div></div>
+        <div class="promo-dots">
+            <div class="promo-dot"></div><div class="promo-dot"></div>
+            <div class="promo-dot active"></div>
+            <div class="promo-dot"></div><div class="promo-dot"></div>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-bar">
+    <div class="bottom-left">
+        <button class="item-shop-btn">
+            <div class="item-shop-icon">🛒<span class="badge-new">N</span></div>
+            <span class="item-shop-label">ITEM SHOP</span>
+        </button>
+        <div class="currency-chip">
+            <div class="currency-icon bone-icon">🦴</div>
+            <span class="currency-amount">3000</span>
+        </div>
+        <div class="currency-chip">
+            <div class="currency-icon cash-icon">💵</div>
+            <span class="currency-amount">0</span>
+        </div>
+    </div>
+    <div class="bottom-right">
+        <div class="player-profile">
+            <div class="player-avatar">🐕<span class="badge-new" style="top:-2px;right:-2px;font-size:8px;">N</span></div>
+            <div class="player-info">
+                <span class="player-name">myra</span>
+                <div class="player-xp-bar"><div class="player-xp-fill"></div></div>
+            </div>
+        </div>
+        <button class="mic-btn">🎤</button>
+        <div class="party-slots">
+            <span class="party-icon">👥</span>
+            <span class="party-count">0/5</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(() => console.log('SW Terdaftar'))
+                .catch(err => console.error('Gagal SW:', err));
+        });
+    }
+    window.addEventListener('load', () => {
+        const docEl = document.documentElement;
+        if (docEl.requestFullscreen) docEl.requestFullscreen({ navigationUI: "hide" });
+        else if (docEl.webkitRequestFullscreen) docEl.webkitRequestFullscreen({ navigationUI: "hide" });
+    });
+    document.querySelectorAll('.menu-item').forEach(item => {
+        item.addEventListener('click', function() {
+            document.querySelectorAll('.menu-item').forEach(i => i.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+    window.addEventListener('resize', () => {
+        document.body.style.top = '0px !important';
+        document.documentElement.style.top = '0px !important';
+    });
+</script>
+</body>
+</html>
