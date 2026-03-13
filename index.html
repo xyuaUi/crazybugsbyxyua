@@ -38,7 +38,6 @@ html, body {
   background: black;
   overflow: hidden;
   font-family: sans-serif;
-  /* Paksa konten ke seluruh layar termasuk punch-hole area */
   padding: 0;
   margin: 0;
 }
@@ -47,140 +46,6 @@ html, body {
 .screen, #slide-transition, #modal-dim, #rotate-overlay {
   top: 0; left: 0; right: 0; bottom: 0;
 }
-
-/* ── TAP TO START OVERLAY ── */
-#tap-start {
-  position: fixed; inset: 0;
-  background: #111;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* PIN Modal */
-#pin-modal {
-  background: #1c1c1e;
-  border-radius: 24px;
-  padding: 32px 28px 28px;
-  width: 320px;
-  max-width: 90vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.7);
-  border: 1px solid rgba(255,255,255,0.08);
-  animation: popup-in 0.42s cubic-bezier(0.4,0,0.2,1) forwards;
-}
-
-#pin-icon {
-  font-size: 40px;
-  line-height: 1;
-}
-
-#pin-title {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  color: #fff;
-  text-align: center;
-  line-height: 1.3;
-}
-
-#pin-subtitle {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 13px;
-  color: rgba(255,255,255,0.4);
-  text-align: center;
-  margin-top: -12px;
-}
-
-/* Dot display */
-#pin-dots {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: center;
-}
-.pin-dot {
-  width: 14px; height: 14px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.25);
-  background: transparent;
-  transition: all 0.15s ease;
-}
-.pin-dot.filled {
-  background: #f5c030;
-  border-color: #f5c030;
-  box-shadow: 0 0 8px rgba(245,192,48,0.5);
-}
-.pin-dot.error {
-  background: #ff4444;
-  border-color: #ff4444;
-  animation: dot-shake 0.4s cubic-bezier(0.36,0.07,0.19,0.97);
-}
-@keyframes dot-shake {
-  0%,100% { transform: translateX(0); }
-  20%      { transform: translateX(-5px); }
-  40%      { transform: translateX(5px); }
-  60%      { transform: translateX(-4px); }
-  80%      { transform: translateX(4px); }
-}
-
-/* Numpad grid */
-#pin-pad {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  width: 100%;
-}
-.pin-key {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 52px;
-  border-radius: 14px;
-  background: rgba(255,255,255,0.08);
-  border: 1.5px solid rgba(255,255,255,0.1);
-  font-family: 'Fredoka', sans-serif;
-  font-size: 22px;
-  font-weight: 600;
-  color: #fff;
-  cursor: pointer;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  transition: transform 0.1s ease, background 0.1s ease;
-}
-.pin-key:active {
-  transform: scale(0.91);
-  background: rgba(245,192,48,0.18);
-}
-.pin-key.special {
-  font-size: 16px;
-  color: rgba(255,255,255,0.5);
-}
-.pin-key.del {
-  font-size: 20px;
-}
-.pin-key.empty {
-  background: transparent;
-  border-color: transparent;
-  pointer-events: none;
-}
-
-/* Error message */
-#pin-error {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 13px;
-  color: #ff6b6b;
-  text-align: center;
-  min-height: 18px;
-  opacity: 0;
-  transition: opacity 0.2s;
-}
-#pin-error.show { opacity: 1; }
 
 /* ── SCREENS ── */
 .screen {
@@ -196,67 +61,6 @@ html, body {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover; object-position: center;
-}
-
-/* ── LOADING UI ── */
-#loading-ui {
-  position: absolute;
-  bottom: 28px; right: 0; left: 0;
-  display: flex; flex-direction: column;
-  align-items: flex-end;
-  padding: 0 20px;
-  gap: 12px;
-  z-index: 10;
-}
-
-#loading-status {
-  display: flex; align-items: center; gap: 6px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-#loading-status.visible { opacity: 1; }
-
-.spin {
-  width: 10px; height: 10px;
-  border: 2px solid rgba(255,255,255,0.25);
-  border-top-color: #fff;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-  flex-shrink: 0;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-#loading-text {
-  font-size: 11px;
-  color: rgba(255,255,255,0.7);
-  letter-spacing: 0.3px;
-}
-
-/* ── BOTTOM PILL TAB ── */
-#bottom-tab {
-  display: none;
-  align-self: center;
-  padding: 10px 36px;
-  border-radius: 999px;
-  border: 1.5px solid rgba(255,255,255,0.45);
-  background: rgba(0,0,0,0.5);
-  color: white;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
-  cursor: pointer;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  user-select: none;
-  transform-origin: center bottom;
-}
-#bottom-tab:active { transform: scale(0.94); }
-#bottom-tab.show {
-  display: block;
-  animation: spring-tab-in 0.5s ease forwards;
-}
-#bottom-tab.hiding {
-  animation: spring-tab-out 0.28s ease forwards;
 }
 
 /* ── NOTIFICATION PILL ── */
@@ -304,21 +108,15 @@ html, body {
 #modal-dim.show { display: flex; animation: dim-in 0.25s ease forwards; }
 #modal-dim.closing { animation: dim-out 0.25s ease forwards; }
 
-/* ── POPUP ANIMATIONS (universal: bawah → atas, pop effect) ── */
-
-/* Muncul: dari bawah naik, smooth tanpa bounce */
+/* ── POPUP ANIMATIONS ── */
 @keyframes popup-in {
   0%   { transform: translateY(32px); opacity: 0; }
   100% { transform: translateY(0);    opacity: 1; }
 }
-
-/* Tutup: turun smooth */
 @keyframes popup-out {
   0%   { transform: translateY(0);    opacity: 1; }
   100% { transform: translateY(32px); opacity: 0; }
 }
-
-/* Notif pill: dari atas turun */
 @keyframes spring-slide-down {
   0%   { transform: translateX(-50%) translateY(-50px); opacity: 0; }
   100% { transform: translateX(-50%) translateY(0);     opacity: 1; }
@@ -328,16 +126,7 @@ html, body {
   100% { transform: translateX(-50%) translateY(-60px) scale(0.9); opacity: 0; }
 }
 
-/* Bottom tab pill */
-@keyframes spring-tab-in {
-  0%   { transform: translateY(16px); opacity: 0; }
-  100% { transform: translateY(0);    opacity: 1; }
-}
-@keyframes spring-tab-out {
-  0%   { transform: translateY(0);    opacity: 1; }
-  100% { transform: translateY(16px); opacity: 0; }
-}
-
+/* ── ACCOUNT MODAL ── */
 #modal-account {
   background: #1c1c1c;
   border-radius: 22px;
@@ -454,18 +243,16 @@ html, body {
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
-  /* JS mengontrol transform + filter langsung via style */
   will-change: transform, filter;
   transition: none;
 }
 
-
-/* ── LAYER 2 OVERLAY (elemen yang ikut geser dengan 2.png) ── */
+/* ── LAYER 2 OVERLAY ── */
 #layer2-overlay {
   position: absolute;
   inset: 0;
   z-index: 5;
-  pointer-events: none; /* diaktifkan via JS saat layer 2 tampil */
+  pointer-events: none;
   opacity: 1;
   transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1);
 }
@@ -475,11 +262,9 @@ html, body {
 /* ── MAIN MENU SCREEN ── */
 #screen-menu {
   position: fixed; inset: 0;
-  opacity: 0; pointer-events: none;
-  transition: opacity 0.5s ease;
+  opacity: 1; pointer-events: all;
   z-index: 1;
 }
-#screen-menu.active { opacity: 1; pointer-events: all; }
 
 #lobby-bg {
   position: absolute; inset: 0;
@@ -516,7 +301,6 @@ html, body {
 }
 .lobby-menu-item:active { transform: scale(0.94); }
 
-/* Default: teks polos, pill tersembunyi */
 .lobby-menu-item .menu-pill { display: none; }
 .lobby-menu-item .menu-label {
   font-size: clamp(13px, 1.8vw, 22px);
@@ -529,7 +313,6 @@ html, body {
 }
 .lobby-menu-item:hover .menu-label { color: #ffe08a; }
 
-/* Active: sembunyikan teks luar, tampilkan pill */
 .lobby-menu-item.active > .menu-label { display: none; }
 .lobby-menu-item.active .menu-pill {
   display: flex;
@@ -643,7 +426,6 @@ html, body {
   border-radius: 999px;
   padding: 4px 10px 4px 5px;
   height: 28px;
-  box-sizing: border-box;
   cursor: pointer;
   transition: background 0.25s cubic-bezier(0.4,0,0.2,1),
               transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
@@ -688,7 +470,6 @@ html, body {
   border-radius: 999px;
   padding: 0 10px 0 6px;
   height: 28px;
-  box-sizing: border-box;
   transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
 }
 .bar-currency:active { transform: scale(0.93); }
@@ -725,7 +506,6 @@ html, body {
   opacity: 0;
   visibility: hidden;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
   transition: opacity 0.3s cubic-bezier(0.4,0,0.2,1),
               visibility 0.3s,
               transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
@@ -766,7 +546,6 @@ html, body {
   border-radius: 999px;
   padding: 0 10px 0 3px;
   height: 28px;
-  box-sizing: border-box;
   position: relative;
   transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
 }
@@ -828,7 +607,6 @@ html, body {
   border-radius: 999px;
   padding: 0 10px;
   height: 28px;
-  box-sizing: border-box;
   font-family: 'Fredoka', sans-serif;
   font-size: 11px; font-weight: 700;
   color: #2e1d00;
@@ -837,11 +615,7 @@ html, body {
 .bar-squad:active { transform: scale(0.93); }
 .bar-squad-icon { font-size: 13px; }
 
-
-
-/* ══════════════════════════════════════════
-   ITEM SHOP MODAL
-══════════════════════════════════════════ */
+/* ── ITEM SHOP MODAL ── */
 #itemshop-modal {
   position: fixed; inset: 0;
   z-index: 5000;
@@ -854,7 +628,6 @@ html, body {
   display: flex;
 }
 
-/* Dim background */
 #itemshop-dim {
   position: absolute; inset: 0;
   background: rgba(0,0,0,0.6);
@@ -866,7 +639,6 @@ html, body {
 @keyframes dim-in  { from { opacity:0; } to { opacity:1; } }
 @keyframes dim-out { from { opacity:1; } to { opacity:0; } }
 
-/* Main panel — muncul dari bawah layar, jelly */
 @keyframes shop-jelly-in {
   0%   { transform: translateY(110%); }
   55%  { transform: translateY(-18px) scaleX(1.025) scaleY(0.97); }
@@ -900,7 +672,6 @@ html, body {
   animation: shop-jelly-out 0.38s cubic-bezier(0.4,0,0.2,1) forwards;
 }
 
-/* Header */
 #itemshop-header {
   display: flex;
   align-items: center;
@@ -935,12 +706,10 @@ html, body {
   letter-spacing: 0.4px;
   box-shadow: 0 3px 0 #c49010;
   transition: transform 0.18s cubic-bezier(0.34,1.56,0.64,1);
-  -webkit-tap-highlight-color: transparent;
 }
 .itemshop-header-btn:active { transform: scale(0.93) translateY(2px); box-shadow: 0 1px 0 #c49010; }
 .itemshop-header-btn-icon { font-size: 18px; }
 
-/* Body scroll area */
 #itemshop-body {
   flex: 1;
   overflow-y: auto;
@@ -952,7 +721,6 @@ html, body {
 #itemshop-body::-webkit-scrollbar { width: 4px; }
 #itemshop-body::-webkit-scrollbar-thumb { background: rgba(180,130,0,0.4); border-radius: 4px; }
 
-/* Section label */
 .shop-section-label {
   font-family: 'Fredoka', sans-serif;
   font-size: 12px;
@@ -974,7 +742,6 @@ html, body {
   display: flex; align-items: center; gap: 4px;
 }
 
-/* Item grid */
 .shop-grid {
   display: flex;
   gap: 10px;
@@ -986,7 +753,6 @@ html, body {
 }
 .shop-grid::-webkit-scrollbar { display: none; }
 
-/* Shop item card */
 .shop-item {
   flex: 0 0 auto;
   width: clamp(120px, 18vw, 180px);
@@ -1006,7 +772,6 @@ html, body {
   border-color: #d4a020;
 }
 
-/* Item image area */
 .shop-item-img {
   width: 100%;
   aspect-ratio: 1 / 1;
@@ -1040,7 +805,6 @@ html, body {
 .shop-item-badge.rare { background: #2288ee; }
 .shop-item-badge.sale { background: #e83030; }
 
-/* Item info */
 .shop-item-info {
   padding: 8px 10px 10px;
 }
@@ -1082,7 +846,6 @@ html, body {
   text-decoration: line-through;
 }
 
-/* BACK button (kiri layar, ala Party Animals) */
 #itemshop-back {
   position: absolute;
   left: -70px;
@@ -1111,9 +874,7 @@ html, body {
   letter-spacing: 0.5px;
 }
 
-/* ══════════════════════════════════════════
-   CHARACTER SELECTION SCREEN
-══════════════════════════════════════════ */
+/* CHARACTER SELECTION SCREEN */
 #screen-char {
   position: fixed; inset: 0;
   z-index: 50;
@@ -1129,7 +890,6 @@ html, body {
   object-fit: cover; object-position: center;
 }
 
-/* Top bar: timer */
 #char-topbar {
   position: absolute;
   top: 14px; left: calc(50% - 40px); transform: translateX(-50%);
@@ -1151,7 +911,6 @@ html, body {
   min-width: 36px; text-align: center;
 }
 
-/* Characters stage — row of characters */
 #char-stage {
   position: absolute;
   bottom: 96px; left: 0; right: 0;
@@ -1176,11 +935,9 @@ html, body {
 }
 .char-slot:active { transform: scale(0.93); }
 
-/* Selected character: lebih besar, di tengah */
 .char-slot.selected { transform: scale(1.12); z-index: 2; }
 .char-slot.selected .char-name-tag { opacity: 1; }
 
-/* Label nama di atas karakter */
 .char-name-tag {
   font-family: 'Fredoka', sans-serif;
   font-size: 11px; font-weight: 600;
@@ -1194,7 +951,6 @@ html, body {
   white-space: nowrap;
 }
 
-/* Check badge saat selected */
 .char-check {
   position: absolute;
   top: -4px; left: 50%; transform: translateX(-50%);
@@ -1209,7 +965,6 @@ html, body {
 }
 .char-slot.selected .char-check { opacity: 1; }
 
-/* Emoji/karakter badan */
 .char-body {
   font-size: clamp(36px, 7vw, 72px);
   line-height: 1;
@@ -1221,7 +976,6 @@ html, body {
   filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25)) brightness(0.88);
 }
 
-/* Sound indicator (active player) */
 .char-sound {
   position: absolute;
   top: 24px; right: -4px;
@@ -1236,7 +990,6 @@ html, body {
 }
 .char-slot.you .char-sound { display: block; }
 
-/* Avatar picker row */
 #char-avatar-row {
   position: absolute;
   bottom: 46px; left: 50%; transform: translateX(-50%);
@@ -1278,7 +1031,6 @@ html, body {
   object-fit: cover; border-radius: 50%;
 }
 
-/* Bottom action bar */
 #char-bottombar {
   position: absolute;
   bottom: 0; left: 0; right: 0;
@@ -1358,9 +1110,7 @@ html, body {
   font-size: 9px; font-weight: 700; color: #2e1d00;
 }
 
-/* ══════════════════════════════════════════
-   FRIENDS MODAL
-══════════════════════════════════════════ */
+/* FRIENDS MODAL */
 #friends-modal {
   position: fixed; inset: 0;
   z-index: 5500;
@@ -1406,7 +1156,6 @@ html, body {
   100% { opacity: 0; transform: translateX(24px); }
 }
 
-/* Tab header */
 #friends-tabs {
   display: flex;
   padding: 10px 10px 0;
@@ -1440,7 +1189,6 @@ html, body {
 }
 .friends-tab-icon { font-size: 16px; }
 
-/* Search bar */
 #friends-search-wrap {
   padding: 10px 10px 6px;
   flex-shrink: 0;
@@ -1482,7 +1230,6 @@ html, body {
   position: relative;
 }
 
-/* Scrollable list */
 #friends-list {
   flex: 1;
   overflow-y: auto;
@@ -1493,7 +1240,6 @@ html, body {
 #friends-list::-webkit-scrollbar { width: 3px; }
 #friends-list::-webkit-scrollbar-thumb { background: rgba(180,130,0,0.3); border-radius: 3px; }
 
-/* Section header */
 .friends-section {
   display: flex;
   align-items: center;
@@ -1518,7 +1264,6 @@ html, body {
 }
 .friends-section.collapsed .friends-section-chevron { transform: rotate(180deg); }
 
-/* Friend row */
 .friends-item {
   display: flex;
   align-items: center;
@@ -1566,7 +1311,6 @@ html, body {
   z-index: 8000;
   pointer-events: none;
   display: none;
-  /* Mask reveal — circle expand dari tengah */
   -webkit-mask-image: radial-gradient(circle, black 0%, black 100%, transparent 100%);
   mask-image: radial-gradient(circle, black 0%, black 100%, transparent 100%);
   -webkit-mask-size: 0% 0%;
@@ -1576,628 +1320,24 @@ html, body {
   -webkit-mask-repeat: no-repeat;
   mask-repeat: no-repeat;
 }
-#slide-img {
-  position: absolute; inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  will-change: transform;
-}
-@keyframes mask-expand {
-  0%   { -webkit-mask-size: 0% 0%;       mask-size: 0% 0%; }
-  100% { -webkit-mask-size: 300% 300%;   mask-size: 300% 300%; }
-}
-@keyframes mask-collapse {
-  0%   { -webkit-mask-size: 300% 300%;   mask-size: 300% 300%; }
-  100% { -webkit-mask-size: 0% 0%;       mask-size: 0% 0%; }
-}
 
-/* ── ROTATE OVERLAY ── */
-#rotate-overlay {
-  display: none; position: fixed; inset: 0;
-  background: black; color: white; z-index: 9999;
-  flex-direction: column; align-items: center; justify-content: center;
-  font-size: 16px; text-align: center; gap: 16px;
-}
-#rotate-overlay .icon {
-  font-size: 48px;
-  animation: rotate-hint 1.5s ease-in-out infinite alternate;
-}
-@keyframes rotate-hint {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(90deg); }
-}
-@media screen and (orientation: portrait) {
-  body:not(.standalone) #rotate-overlay { display: flex; }
-}
-
-/* ══ WINDOWSTAB OVERLAY ══
-   Frame Windows 11 selalu tampil di atas,
-   pointer-events:none = klik & sentuhan menembus ke game */
-#windowstab {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
-  z-index: 99990;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: none;
-  background: url('assets/windowstab.png') no-repeat center center / 100% 100%;
-  image-rendering: crisp-edges;
-  -webkit-image-rendering: -webkit-optimize-contrast;
-}
-
-/* ══ CUSTOM POINTER ══
-   Sembunyikan cursor asli, ganti dengan pointer.png */
-* { cursor: none !important; }
+/* ── CUSTOM POINTER ── */
 #custom-pointer {
   position: fixed;
-  top: 0; left: 0;
-  width: 32px; height: 32px;
-  background: url('assets/pointer.png') no-repeat top left / contain;
-  z-index: 99999;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #f5c030;
   pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  will-change: transform;
-  transform: translate(-2px, -2px);
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.15s;
+  opacity: 0;
+  mix-blend-mode: difference;
 }
-
 </style>
 </head>
 <body>
-
-<!-- ══ WINDOWSTAB: overlay Windows 11, tidak ganggu klik ══ -->
-<div id="windowstab"></div>
-<!-- ══ CUSTOM POINTER ══ -->
-<div id="custom-pointer"></div>
-
-
-<!-- Rotate Overlay -->
-<div id="rotate-overlay">
-  <div class="icon">📱</div>
-  <div>Putar perangkat ke mode Landscape</div>
-</div>
-
-<!-- Tap To Start: fullscreen gate -->
-<div id="tap-start">
-  <div id="pin-modal">
-    <div id="pin-icon">🔒</div>
-    <div id="pin-title">Masukkan PIN</div>
-    <div id="pin-subtitle">Crazy Bugs</div>
-
-    <!-- Dot indicators -->
-    <div id="pin-dots">
-      <div class="pin-dot" id="dot-0"></div>
-      <div class="pin-dot" id="dot-1"></div>
-      <div class="pin-dot" id="dot-2"></div>
-      <div class="pin-dot" id="dot-3"></div>
-      <div class="pin-dot" id="dot-4"></div>
-      <div class="pin-dot" id="dot-5"></div>
-    </div>
-
-    <!-- Error message -->
-    <div id="pin-error">PIN salah. Mengalihkan...</div>
-
-    <!-- Numpad -->
-    <div id="pin-pad">
-      <div class="pin-key" data-val="1">1</div>
-      <div class="pin-key" data-val="2">2</div>
-      <div class="pin-key" data-val="3">3</div>
-      <div class="pin-key" data-val="4">4</div>
-      <div class="pin-key" data-val="5">5</div>
-      <div class="pin-key" data-val="6">6</div>
-      <div class="pin-key" data-val="7">7</div>
-      <div class="pin-key" data-val="8">8</div>
-      <div class="pin-key" data-val="9">9</div>
-      <div class="pin-key special" data-val="△">△</div>
-      <div class="pin-key" data-val="0">0</div>
-      <div class="pin-key del" id="pin-del">⌫</div>
-    </div>
-  </div>
-</div>
-
-<!-- Screen 1: Splashscreen -->
-<div id="screen-splash" class="screen active">
-  <img id="img-splash" src="assets/splashscreen.png" alt="Splash">
-</div>
-
-<!-- Screen 2: Layar Hitam -->
-<div id="screen-black" class="screen"></div>
-
-<!-- Screen 3: Loading -->
-<div id="screen-load" class="screen">
-  <img id="img-loadbg" src="assets/loadingbg.png" alt="Loading">
-
-  <div id="loading-ui">
-    <div id="loading-status">
-      <div class="spin"></div>
-      <span id="loading-text"></span>
-    </div>
-    <div id="bottom-tab"></div>
-  </div>
-</div>
-
-<!-- Screen 4: Main Menu -->
-<div id="screen-menu">
-  <img id="lobby-bg" src="assets/lobbybg.png" alt="Lobby">
-
-  <!-- Layer carousel: 1.png 2.png 3.png -->
-  <div id="lobby-layers">
-    <img id="layer-1" class="lobby-layer" src="assets/1.png" alt="layer1">
-    <img id="layer-2" class="lobby-layer" src="assets/2.png" alt="layer2">
-    <img id="layer-3" class="lobby-layer" src="assets/3.png" alt="layer3">
-  </div>
-
-  <div id="menu-content">
-
-    <!-- Overlay untuk layer 2.png — fade in/out saat layer 2 tampil/hilang -->
-    <div id="layer2-overlay">
-
-      <!-- LEFT: Menu -->
-      <div class="lobby-left" id="lobby-menu">
-        <div class="lobby-menu-item active" data-menu="quickmatch">
-          <div class="menu-pill">
-            <div class="menu-arrow"></div>
-            <span class="menu-label">Quick Match</span>
-          </div>
-          <span class="menu-label">Quick Match</span>
-        </div>
-        <div class="lobby-menu-item" data-menu="customgame">
-          <div class="menu-pill">
-            <div class="menu-arrow"></div>
-            <span class="menu-label">Custom Game</span>
-          </div>
-          <span class="menu-label">Custom Game</span>
-        </div>
-        <div class="lobby-menu-item" data-menu="locker" id="menu-locker">
-          <div class="menu-pill">
-            <div class="menu-arrow"></div>
-            <span class="menu-label">Locker</span>
-          </div>
-          <span class="menu-label">Locker</span>
-        </div>
-      </div>
-
-      <!-- RIGHT: Cards -->
-      <div class="lobby-right">
-        <div class="lobby-card">
-          <img src="assets/ads1.png" alt="ads1">
-          <div class="lobby-card-dots">
-            <div class="lobby-card-dot active"></div>
-            <div class="lobby-card-dot"></div>
-            <div class="lobby-card-dot"></div>
-          </div>
-        </div>
-        <div class="lobby-card">
-          <img src="assets/ads2.png" alt="ads2">
-          <div class="lobby-card-dots">
-            <div class="lobby-card-dot"></div>
-            <div class="lobby-card-dot active"></div>
-            <div class="lobby-card-dot"></div>
-            <div class="lobby-card-dot"></div>
-            <div class="lobby-card-dot"></div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /layer2-overlay -->
-
-    <!-- BOTTOM BAR -->
-    <div class="lobby-bottom">
-      <!-- Left -->
-      <div class="bar-left">
-        <div class="bar-btn" id="btn-itemshop">
-          <img class="bar-btn-icon" src="assets/user.png" alt="shop">
-          <span class="bar-btn-label">Item Shop</span>
-          <div class="bar-btn-badge">N</div>
-        </div>
-        <div class="bar-currency">
-          <img class="bar-currency-icon" src="assets/icon-bone.png" alt="bone" onerror="this.style.display='none';this.nextElementSibling.textContent='🦴 0'">
-          <span class="bar-currency-val">0</span>
-        </div>
-        <div class="bar-currency">
-          <img class="bar-currency-icon" src="assets/icon-ticket.png" alt="ticket" onerror="this.style.display='none';this.nextElementSibling.textContent='🎟 0'">
-          <span class="bar-currency-val">0</span>
-        </div>
-        <div class="bar-more">☰</div>
-      </div>
-
-      <!-- Center: CONFIRM (di 2.png disembunyikan) / BACK (di 1.png & 3.png) -->
-      <div class="bar-center">
-        <div class="bar-confirm" id="bar-confirm-btn">
-          <div class="bar-confirm-key" id="bar-confirm-key">A</div>
-          <span class="bar-confirm-label" id="bar-confirm-label">Confirm</span>
-        </div>
-      </div>
-
-      <!-- Right -->
-      <div class="bar-right">
-        <div class="bar-profile" id="lobby-profile">
-          <img class="bar-profile-avatar" src="assets/user.png" alt="avatar" id="bar-avatar">
-          <div class="bar-profile-info">
-            <span class="bar-profile-name" id="bar-name">Player</span>
-            <div class="bar-profile-xp">
-              <div class="bar-profile-xp-fill"></div>
-            </div>
-          </div>
-          <div class="bar-profile-badge">N</div>
-        </div>
-        <div class="bar-icon-btn">🎙️</div>
-        <div class="bar-squad">
-          <span class="bar-squad-icon">👥</span>
-          <span>0/0</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Slide transition overlay -->
-  <div id="menu-slide">
-    <img id="menu-slide-img" src="assets/splashloading2.png" alt="">
-  </div>
-</div>
-
-<!-- ══ CHARACTER SELECTION SCREEN ══ -->
-<div id="screen-char">
-  <img id="char-bg" src="assets/bgcharacter.png" alt="Character BG">
-
-  <!-- Timer atas -->
-  <div id="char-topbar">
-    <span id="char-timer-icon">⏱</span>
-    <span id="char-timer-val">20</span>
-  </div>
-
-  <!-- Stage: barisan karakter -->
-  <div id="char-stage">
-
-    <div class="char-slot" data-idx="0">
-      <div class="char-name-tag">AI Player 1</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪</div>
-      <div class="char-body">🐧</div>
-    </div>
-
-    <div class="char-slot" data-idx="1">
-      <div class="char-name-tag">AI Player 4</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪</div>
-      <div class="char-body">🐕</div>
-    </div>
-
-    <div class="char-slot" data-idx="2">
-      <div class="char-name-tag">AI Player 6</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪</div>
-      <div class="char-body">🐭</div>
-    </div>
-
-    <div class="char-slot selected you" data-idx="3">
-      <div class="char-name-tag">You</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪♪</div>
-      <div class="char-body">🐱</div>
-    </div>
-
-    <div class="char-slot" data-idx="4">
-      <div class="char-name-tag">AI Player 5</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪</div>
-      <div class="char-body">🦕</div>
-    </div>
-
-    <div class="char-slot" data-idx="5">
-      <div class="char-name-tag">AI Player 3</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪</div>
-      <div class="char-body">🐺</div>
-    </div>
-
-    <div class="char-slot" data-idx="6">
-      <div class="char-name-tag">AI Player 2</div>
-      <div class="char-check">✓</div>
-      <div class="char-sound">♪</div>
-      <div class="char-body">🐼</div>
-    </div>
-
-  </div>
-
-  <!-- Avatar picker row bawah -->
-  <div id="char-avatar-row">
-    <div class="char-avatar-btn selected" data-char="3">🐱</div>
-    <div class="char-avatar-btn" data-char="0">🐧</div>
-    <div class="char-avatar-btn" data-char="1">🐕</div>
-    <div class="char-avatar-btn" data-char="2">🐭</div>
-    <div class="char-avatar-btn" data-char="4">🦕</div>
-    <div class="char-avatar-btn" data-char="5">🐺</div>
-    <div class="char-avatar-btn" data-char="6">🐼</div>
-    <div class="char-avatar-btn" data-char="7">🐻</div>
-    <div class="char-avatar-btn" data-char="8">🐯</div>
-    <div class="char-avatar-btn" data-char="9">🦊</div>
-    <div class="char-avatar-btn" data-char="10">🐮</div>
-    <div class="char-avatar-btn" data-char="11">🐸</div>
-    <div class="char-avatar-btn" data-char="12">🐹</div>
-  </div>
-
-  <!-- Bottom bar -->
-  <div id="char-bottombar">
-    <div id="char-bottombar-left">
-      <div id="char-bottombar-left-key">◀</div>
-      Select Character
-    </div>
-
-    <div id="char-ready-btn" onclick="charBack()">
-      <div id="char-ready-key">B</div>
-      Back
-    </div>
-
-    <div id="char-bottombar-right">
-      Change Outfit
-      <div id="char-bottombar-right-key">▶</div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ ITEM SHOP MODAL ══ -->
-<div id="itemshop-modal">
-  <div id="itemshop-dim"></div>
-
-  <!-- BACK button kiri (ala Party Animals) -->
-  <div id="itemshop-back" onclick="closeItemShop()">
-    <div id="itemshop-back-arrow">&#8249;</div>
-    <div id="itemshop-back-label">Back</div>
-  </div>
-
-  <div id="itemshop-panel">
-    <!-- Header -->
-    <div id="itemshop-header">
-      <div id="itemshop-title">Item Shop</div>
-      <div class="itemshop-header-btn">
-        <span class="itemshop-header-btn-icon">🎟️</span>
-        Redeem
-      </div>
-      <div class="itemshop-header-btn">
-        <span class="itemshop-header-btn-icon">🥚</span>
-        Surprise Eggs
-      </div>
-    </div>
-
-    <!-- Scrollable body -->
-    <div id="itemshop-body">
-
-      <!-- Section: Featured -->
-      <div class="shop-section-label">Slumber Party</div>
-      <div class="shop-grid">
-
-        <!-- Featured item (besar) -->
-        <div class="shop-item featured">
-          <div class="shop-item-img">
-            🐶🐱
-            <div class="shop-item-badge sale">30% Off</div>
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">PJ Bundle</div>
-            <div class="shop-item-type">Bundle</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">12600</span>
-              <span class="shop-item-price-old">18000</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Item normal -->
-        <div class="shop-item">
-          <div class="shop-item-img">
-            🐱
-            <div class="shop-item-badge epic">Epic</div>
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">PJ Garfa</div>
-            <div class="shop-item-type">Outfit</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">12000</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-item">
-          <div class="shop-item-img">
-            🐶
-            <div class="shop-item-badge rare">Rare</div>
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">PJ Fluffy</div>
-            <div class="shop-item-type">Outfit</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">6000</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-item">
-          <div class="shop-item-img">🎭</div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Party Hat</div>
-            <div class="shop-item-type">Accessory</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">3200</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /grid -->
-
-      <!-- Section: Weekly -->
-      <div class="shop-section-label">
-        Weekly
-        <span class="shop-section-refresh">🕐 Refresh in 8h 55m</span>
-      </div>
-      <div class="shop-grid">
-
-        <div class="shop-item">
-          <div class="shop-item-img" style="background:linear-gradient(135deg,#c03030,#801010)">
-            😈
-            <div class="shop-item-badge epic">Epic</div>
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Dark Mask</div>
-            <div class="shop-item-type">Outfit</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">8800</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-item">
-          <div class="shop-item-img" style="background:linear-gradient(135deg,#e0e0e0,#a0a0a0)">
-            🤖
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Robot Skin</div>
-            <div class="shop-item-type">Outfit</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">5500</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-item">
-          <div class="shop-item-img" style="background:linear-gradient(135deg,#30a030,#106010)">
-            🌿
-            <div class="shop-item-badge rare">Rare</div>
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Forest Cloak</div>
-            <div class="shop-item-type">Outfit</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">4200</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-item">
-          <div class="shop-item-img" style="background:linear-gradient(135deg,#d080d0,#8030a0)">
-            ✨
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Star Trail</div>
-            <div class="shop-item-type">Effect</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">3600</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="shop-item">
-          <div class="shop-item-img" style="background:linear-gradient(135deg,#f0a030,#c06010)">
-            🔥
-          </div>
-          <div class="shop-item-info">
-            <div class="shop-item-name">Fire Trail</div>
-            <div class="shop-item-type">Effect</div>
-            <div class="shop-item-price">
-              <span class="shop-item-price-icon">🦴</span>
-              <span class="shop-item-price-val">3600</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /weekly grid -->
-
-    </div><!-- /itemshop-body -->
-  </div><!-- /itemshop-panel -->
-</div><!-- /itemshop-modal -->
-
-<!-- ══ FRIENDS MODAL ══ -->
-<div id="friends-modal">
-  <div id="friends-dim" onclick="closeFriends()"></div>
-
-  <div id="friends-panel">
-    <!-- Tabs -->
-    <div id="friends-tabs">
-      <div class="friends-tab active" id="tab-friends" onclick="switchFriendsTab('friends')">
-        <span class="friends-tab-icon">🐾</span> Friends
-      </div>
-      <div class="friends-tab" id="tab-addnew" onclick="switchFriendsTab('addnew')">
-        <span class="friends-tab-icon">🐱</span> Add New
-      </div>
-    </div>
-
-    <!-- Search -->
-    <div id="friends-search-wrap">
-      <div id="friends-search-row">
-        <span id="friends-search-icon">🔍</span>
-        <input id="friends-search" type="text" placeholder="Find a New Friend">
-        <div id="friends-search-clear" onclick="document.getElementById('friends-search').value=''">✕</div>
-      </div>
-    </div>
-
-    <!-- List -->
-    <div id="friends-list">
-
-      <!-- Section: Played Together -->
-      <div class="friends-section" onclick="toggleFriendsSection(this)">
-        <span class="friends-section-label">Played Together (4)</span>
-        <span class="friends-section-chevron">▲</span>
-      </div>
-      <div class="friends-section-body">
-        <div class="friends-item">
-          <div class="friends-avatar">🐕</div>
-          <span class="friends-name">CarobYurusa</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-        <div class="friends-item">
-          <div class="friends-avatar">🐱</div>
-          <span class="friends-name">F45hg</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-        <div class="friends-item">
-          <div class="friends-avatar">🐻</div>
-          <span class="friends-name">EbonyUni</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-        <div class="friends-item">
-          <div class="friends-avatar">🐼</div>
-          <span class="friends-name">Inhumane</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-      </div>
-
-      <!-- Section: You May Know Them -->
-      <div class="friends-section" onclick="toggleFriendsSection(this)">
-        <span class="friends-section-label">You May Know Them (38)</span>
-        <span class="friends-section-chevron">▼</span>
-      </div>
-      <div class="friends-section-body" style="display:none">
-        <div class="friends-item">
-          <div class="friends-avatar">🦊</div>
-          <span class="friends-name">WildFoxRed</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-        <div class="friends-item">
-          <div class="friends-avatar">🐯</div>
-          <span class="friends-name">TigerClaw9</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-        <div class="friends-item">
-          <div class="friends-avatar">🐺</div>
-          <span class="friends-name">WolfPackX</span>
-          <div class="friends-add-btn">+</div>
-        </div>
-      </div>
-
-    </div><!-- /friends-list -->
-  </div><!-- /friends-panel -->
-</div><!-- /friends-modal -->
 
 <!-- Notification Pill -->
 <div id="notif-pill">
@@ -2205,7 +1345,7 @@ html, body {
   <span id="notif-text">awoo, Player</span>
 </div>
 
-<!-- Modal Dim + Create Account Popup -->
+<!-- Modal Dim + Create Account Popup (tetep ada kalau lu mau edit profil) -->
 <div id="modal-dim">
   <div id="modal-account">
     <h2>Profile</h2>
@@ -2241,65 +1381,235 @@ html, body {
   <img id="slide-img" src="assets/splashloading2.png" alt="transition">
 </div>
 
+<!-- MAIN MENU / LOBBY -->
+<div id="screen-menu" class="screen active">
+  <img id="lobby-bg" src="assets/lobby-bg.png" alt="lobby bg">
+
+  <div id="lobby-layers">
+    <img id="layer-1" class="lobby-layer" src="assets/layer1.png" alt="layer 1">
+    <div id="layer2-overlay">
+      <img id="layer-2" class="lobby-layer" src="assets/layer2.png" alt="layer 2">
+      <!-- Elemen overlay lain kalau ada -->
+    </div>
+    <img id="layer-3" class="lobby-layer" src="assets/layer3.png" alt="layer 3">
+  </div>
+
+  <div id="menu-content">
+    <!-- Lobby left menu -->
+    <div class="lobby-left" id="lobby-menu">
+      <div class="lobby-menu-item" data-menu="quickmatch">
+        <div class="menu-pill">
+          <span class="menu-label">QUICK MATCH</span>
+          <div class="menu-arrow"></div>
+        </div>
+        <span class="menu-label">QUICK MATCH</span>
+      </div>
+      <div class="lobby-menu-item" data-menu="customgame">
+        <div class="menu-pill">
+          <span class="menu-label">CUSTOM GAME</span>
+          <div class="menu-arrow"></div>
+        </div>
+        <span class="menu-label">CUSTOM GAME</span>
+      </div>
+      <div class="lobby-menu-item" data-menu="locker">
+        <div class="menu-pill">
+          <span class="menu-label">LOCKER</span>
+          <div class="menu-arrow"></div>
+        </div>
+        <span class="menu-label">LOCKER</span>
+      </div>
+    </div>
+
+    <!-- Center character -->
+    <div class="lobby-center">
+      <img src="assets/character-center.png" alt="main character">
+    </div>
+
+    <!-- Right cards -->
+    <div class="lobby-right">
+      <div class="lobby-card" data-card="card1">
+        <img src="assets/card1.png" alt="card 1">
+        <div class="lobby-card-dots">
+          <div class="lobby-card-dot active"></div>
+          <div class="lobby-card-dot"></div>
+          <div class="lobby-card-dot"></div>
+        </div>
+      </div>
+      <div class="lobby-card" data-card="card2">
+        <img src="assets/card2.png" alt="card 2">
+        <div class="lobby-card-dots">
+          <div class="lobby-card-dot"></div>
+          <div class="lobby-card-dot active"></div>
+          <div class="lobby-card-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="lobby-bottom">
+      <div class="bar-left">
+        <div class="bar-btn">
+          <img class="bar-btn-icon" src="assets/icon-shop.png" alt="shop">
+          <span class="bar-btn-label">SHOP</span>
+        </div>
+        <div class="bar-currency">
+          <img class="bar-currency-icon" src="assets/icon-coin.png" alt="coin">
+          <span class="bar-currency-val">12,450</span>
+        </div>
+      </div>
+
+      <div class="bar-center">
+        <div class="bar-confirm visible" id="bar-confirm-btn">
+          <div class="bar-confirm-key">B</div>
+          <span class="bar-confirm-label">Back</span>
+        </div>
+      </div>
+
+      <div class="bar-right">
+        <div class="bar-profile">
+          <img class="bar-profile-avatar" id="bar-avatar" src="assets/user.png" alt="avatar">
+          <div class="bar-profile-info">
+            <span class="bar-profile-name" id="bar-name">Player</span>
+            <div class="bar-profile-xp">
+              <div class="bar-profile-xp-fill"></div>
+            </div>
+          </div>
+        </div>
+        <div class="bar-squad">
+          <span class="bar-squad-icon">👥</span>
+          <span>0/0</span>
+        </div>
+        <div class="bar-icon-btn">⚙️</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHARACTER SELECTION SCREEN -->
+<div id="screen-char" class="screen">
+  <img id="char-bg" src="assets/bgcharacter.png" alt="char bg">
+
+  <div id="char-topbar">
+    <span id="char-timer-icon">⏰</span>
+    <span id="char-timer-val">20</span>
+  </div>
+
+  <div id="char-stage">
+    <!-- Slot karakter lu isi sendiri sesuai desain -->
+    <div class="char-slot" data-idx="1"><div class="char-body">🦊</div><div class="char-name-tag">Fox</div><div class="char-check">✔</div></div>
+    <div class="char-slot" data-idx="2"><div class="char-body">🐯</div><div class="char-name-tag">Tiger</div><div class="char-check">✔</div></div>
+    <div class="char-slot selected" data-idx="3"><div class="char-body">🐺</div><div class="char-name-tag">You</div><div class="char-check">✔</div><div class="char-sound">♪</div></div>
+    <div class="char-slot" data-idx="4"><div class="char-body">🐻</div><div class="char-name-tag">Bear</div><div class="char-check">✔</div></div>
+    <div class="char-slot" data-idx="5"><div class="char-body">🦁</div><div class="char-name-tag">Lion</div><div class="char-check">✔</div></div>
+  </div>
+
+  <div id="char-avatar-row">
+    <div class="char-avatar-btn"><img src="assets/avatar1.png" alt="av1"></div>
+    <div class="char-avatar-btn selected"><img src="assets/avatar2.png" alt="av2"></div>
+    <div class="char-avatar-btn"><img src="assets/avatar3.png" alt="av3"></div>
+    <div class="char-avatar-btn"><img src="assets/avatar4.png" alt="av4"></div>
+  </div>
+
+  <div id="char-bottombar">
+    <div id="char-bottombar-left">
+      <span>CHOOSE YOUR BUG</span>
+    </div>
+    <div id="char-ready-btn">
+      <span id="char-ready-key">A</span>
+      <span>READY</span>
+    </div>
+    <div id="char-bottombar-right">
+      <span>20s</span>
+    </div>
+  </div>
+</div>
+
+<!-- ITEM SHOP MODAL -->
+<div id="itemshop-modal">
+  <div id="itemshop-dim"></div>
+  <div id="itemshop-panel">
+    <div id="itemshop-header">
+      <div id="itemshop-title">ITEM SHOP</div>
+      <div class="itemshop-header-btn">
+        <span class="itemshop-header-btn-icon">🔄</span>
+        <span>Refresh</span>
+      </div>
+    </div>
+    <div id="itemshop-body">
+      <!-- Isi item shop lu sendiri nanti -->
+      <div class="shop-section-label">FEATURED</div>
+      <div class="shop-grid">
+        <!-- Contoh item -->
+        <div class="shop-item featured">
+          <div class="shop-item-img"><img src="assets/item-featured.png" alt="featured"></div>
+          <div class="shop-item-info">
+            <div class="shop-item-name">Epic Skin</div>
+            <div class="shop-item-type">Limited</div>
+            <div class="shop-item-price">
+              <span class="shop-item-price-icon">💎</span>
+              <span class="shop-item-price-val">999</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="itemshop-back">
+    <span id="itemshop-back-arrow">←</span>
+    <span id="itemshop-back-label">BACK</span>
+  </div>
+</div>
+
+<!-- FRIENDS MODAL -->
+<div id="friends-modal">
+  <div id="friends-dim"></div>
+  <div id="friends-panel">
+    <div id="friends-tabs">
+      <div class="friends-tab active" id="tab-friends"><span class="friends-tab-icon">👥</span>Friends</div>
+      <div class="friends-tab" id="tab-requests"><span class="friends-tab-icon">📩</span>Requests</div>
+    </div>
+    <div id="friends-search-wrap">
+      <div id="friends-search-row">
+        <span id="friends-search-icon">🔍</span>
+        <input id="friends-search" placeholder="Search friends...">
+        <span id="friends-search-clear">×</span>
+      </div>
+    </div>
+    <div id="friends-list">
+      <!-- Contoh friends list -->
+      <div class="friends-item">
+        <div class="friends-avatar">🦊</div>
+        <span class="friends-name">WildFoxRed</span>
+        <div class="friends-add-btn">+</div>
+      </div>
+      <!-- Tambah lebih banyak sesuai kebutuhan -->
+    </div>
+  </div>
+</div>
+
 <script>
-
-// ── Standalone detect ──
-if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone) {
-  document.body.classList.add('standalone');
-}
-
-// ── Fullscreen + Orientation (Redmi 10 / MIUI optimized) ──
+// ── Fullscreen + Orientation ──
 async function goFullscreenLandscape() {
   try {
     const el = document.documentElement;
-    if (el.requestFullscreen) {
-      await el.requestFullscreen({ navigationUI: 'hide' });
-    } else if (el.webkitRequestFullscreen) {
-      el.webkitRequestFullscreen();
-    } else if (el.mozRequestFullScreen) {
-      el.mozRequestFullScreen();
-    }
+    if (el.requestFullscreen) await el.requestFullscreen({ navigationUI: 'hide' });
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
   } catch(e) {}
 
   try {
-    if (screen.orientation?.lock) {
-      await screen.orientation.lock("landscape");
-    } else if (screen.lockOrientation) {
-      screen.lockOrientation("landscape-primary");
-    } else if (screen.mozLockOrientation) {
-      screen.mozLockOrientation("landscape-primary");
-    }
+    if (screen.orientation?.lock) await screen.orientation.lock("landscape");
   } catch(e) {}
 }
 
-// Trigger fullscreen pada interaksi pertama
 document.addEventListener("touchstart", goFullscreenLandscape, { once: true, passive: true });
 document.addEventListener("click", goFullscreenLandscape, { once: true });
-
-// Re-trigger jika keluar fullscreen (misal notif bar MIUI ditarik)
-document.addEventListener("fullscreenchange", () => {
-  if (!document.fullscreenElement) {
-    setTimeout(() => {
-      document.addEventListener("touchstart", goFullscreenLandscape, { once: true, passive: true });
-      document.addEventListener("click", goFullscreenLandscape, { once: true });
-    }, 500);
-  }
-});
-document.addEventListener("webkitfullscreenchange", () => {
-  if (!document.webkitFullscreenElement) {
-    setTimeout(() => {
-      document.addEventListener("touchstart", goFullscreenLandscape, { once: true, passive: true });
-      document.addEventListener("click", goFullscreenLandscape, { once: true });
-    }, 500);
-  }
-});
 
 // ── Helpers ──
 const wait = ms => new Promise(r => setTimeout(r, ms));
 
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.getElementById(id)?.classList.add('active');
 }
 
 // ── Account Storage ──
@@ -2308,40 +1618,6 @@ function getAccount() {
 }
 function saveAccount(data) {
   localStorage.setItem('pb_account', JSON.stringify(data));
-}
-
-// ── Loading Text ──
-const loadingStatus = document.getElementById('loading-status');
-const loadingTextEl = document.getElementById('loading-text');
-
-async function showLoadingText(text, ms) {
-  loadingTextEl.textContent = text;
-  loadingStatus.classList.add('visible');
-  await wait(ms);
-  loadingStatus.classList.remove('visible');
-  await wait(200);
-}
-
-async function hideLoadingText(ms) {
-  loadingStatus.classList.remove('visible');
-  await wait(ms);
-}
-
-// ── Bottom Tab ──
-const bottomTab = document.getElementById('bottom-tab');
-function showTab(label) {
-  bottomTab.textContent = label;
-  bottomTab.classList.remove('hiding');
-  bottomTab.classList.add('show');
-}
-function hideTab() {
-  bottomTab.classList.remove('show');
-  bottomTab.classList.add('hiding');
-  setTimeout(() => {
-    bottomTab.classList.remove('hiding');
-    bottomTab.style.display = 'none';
-    setTimeout(() => { bottomTab.style.display = ''; }, 50);
-  }, 300);
 }
 
 // ── Notification Pill ──
@@ -2358,106 +1634,24 @@ async function showNotif(avatarSrc, name) {
   pill.classList.add('hide');
 }
 
-// ── Slide Transition (smooth) ──
-// ── Mask transition helpers ──
-const MASK_EXPAND_MS  = 550;
-const MASK_COLLAPSE_MS = 550;
-
-async function maskIn() {
-  const wrap = document.getElementById('slide-transition');
-  wrap.style.display = 'block';
-  wrap.style.pointerEvents = 'all';
-  // Reset mask ke 0
-  wrap.style.animation = 'none';
-  wrap.style.webkitMaskSize = '0% 0%';
-  wrap.style.maskSize = '0% 0%';
-  await new Promise(r => requestAnimationFrame(() => requestAnimationFrame(r)));
-  // Expand mask
-  wrap.style.animation = `mask-expand ${MASK_EXPAND_MS}ms cubic-bezier(0.4,0,0.2,1) forwards`;
-  wrap.style.webkitAnimation = `mask-expand ${MASK_EXPAND_MS}ms cubic-bezier(0.4,0,0.2,1) forwards`;
-  await wait(MASK_EXPAND_MS);
-}
-
-async function maskOut() {
-  const wrap = document.getElementById('slide-transition');
-  wrap.style.animation = `mask-collapse ${MASK_COLLAPSE_MS}ms cubic-bezier(0.4,0,0.2,1) forwards`;
-  wrap.style.webkitAnimation = `mask-collapse ${MASK_COLLAPSE_MS}ms cubic-bezier(0.4,0,0.2,1) forwards`;
-  await wait(MASK_COLLAPSE_MS);
-  wrap.style.pointerEvents = 'none';
-  wrap.style.display = 'none';
-  wrap.style.animation = 'none';
-  wrap.style.webkitMaskSize = '0% 0%';
-  wrap.style.maskSize = '0% 0%';
-}
-
-// slideShow:
-//   - mask expand (MASK_EXPAND_MS) → visible totalMs → mask collapse
-//   - audio cave effect saat reveal
-//   - onAt7s() dipanggil di detik ke-7 dari totalMs mulai
-async function slideShow(onAt7s, totalMs = 10000) {
-  await maskIn();
-
-  // Efek audio: cave effect saat splashloading muncul penuh
-  if (lobbyAudioReady) setLoadingEffect();
-  if (charAudioReady) setCharLoadingEffect();
-
-  // Detik ke-7: crossfade musik
-  const at7 = 7000;
-  let at7Fired = false;
-  const t7 = setTimeout(() => {
-    at7Fired = true;
-    if (typeof onAt7s === 'function') onAt7s();
-  }, at7);
-
-  await wait(totalMs);
-  clearTimeout(t7);
-  if (!at7Fired && typeof onAt7s === 'function') onAt7s();
-}
-
-async function slideOut() {
-  await maskOut();
-}
-
-// slideIn: alias maskIn (tidak dipakai lagi tapi aman)
-async function slideIn() {
-  await maskIn();
-}
-
 // ── Avatar Picker ──
 let avatarDataUrl = null;
-document.getElementById('avatar-wrap').addEventListener('click', () => {
+document.getElementById('avatar-wrap')?.addEventListener('click', () => {
   document.getElementById('avatar-input').click();
 });
-document.getElementById('avatar-input').addEventListener('change', function() {
+document.getElementById('avatar-input')?.addEventListener('change', function() {
   const file = this.files[0];
   if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
-    cropToSquare(e.target.result, cropped => {
-      avatarDataUrl = cropped;
-      document.getElementById('avatar-preview').src = cropped;
-    });
+    // cropToSquare function lu hapus atau biarin kalau masih dipake
+    avatarDataUrl = e.target.result;
+    document.getElementById('avatar-preview').src = avatarDataUrl;
   };
   reader.readAsDataURL(file);
 });
 
-function cropToSquare(src, cb) {
-  const img = new Image();
-  img.onload = function() {
-    const size = Math.min(img.width, img.height);
-    const canvas = document.createElement('canvas');
-    canvas.width = canvas.height = size;
-    canvas.getContext('2d').drawImage(
-      img,
-      (img.width - size) / 2, (img.height - size) / 2,
-      size, size, 0, 0, size, size
-    );
-    cb(canvas.toDataURL('image/jpeg', 0.85));
-  };
-  img.src = src;
-}
-
-// ── Open / Close Modal ──
+// ── Open / Close Modal Account ──
 function openModal() {
   const dim   = document.getElementById('modal-dim');
   const modal = document.getElementById('modal-account');
@@ -2477,14 +1671,11 @@ function closeModal() {
 }
 
 // ── Save Account ──
-document.getElementById('btn-save').addEventListener('click', async () => {
+document.getElementById('btn-save')?.addEventListener('click', () => {
   const fnEl = document.getElementById('input-firstname');
   const lnEl = document.getElementById('input-lastname');
   const fn   = fnEl.value.trim();
   const ln   = lnEl.value.trim();
-
-  fnEl.classList.remove('error');
-  lnEl.classList.remove('error');
 
   if (fn.length < 3) { fnEl.classList.add('error'); return; }
   if (ln.length > 0 && ln.length < 3) { lnEl.classList.add('error'); return; }
@@ -2495,55 +1686,17 @@ document.getElementById('btn-save').addEventListener('click', async () => {
     avatar:    avatarDataUrl || 'assets/user.png'
   };
   saveAccount(account);
-
   closeModal();
-  hideTab();
 
   const displayName = fn + (ln ? ' ' + ln : '');
-
-  // Tampilkan Check account lagi (mencari akun baru)
-  await showLoadingText('Check account', 4000);
-
-  // Akun ditemukan → notif + Tap To Continue
-  showNotif(account.avatar, displayName);
-  showTab('Tap To Continue');
+  document.getElementById('bar-name').textContent = displayName;
+  document.getElementById('bar-avatar').src = account.avatar;
 });
 
-// ── Tap To Continue Handler ──
-bottomTab.addEventListener('click', async () => {
-  if (bottomTab.textContent !== 'Tap To Continue') return;
-  hideTab();
-
-  // Slide masuk dari kiri
-  // slideShow 10 detik dengan audio effect
-  // Di detik-7: setNormalEffect (hilangkan cave effect, musik lobby normal)
-  prepareMenu(); // render lobby di belakang slide
-
-  await slideShow(() => {
-    showMenu(); // swap screen ke lobby di detik-7
-  }, 10000);
-
-  await slideOut();
-  // Cave effect hilang setelah mask tutup (terasa natural)
-  setNormalEffect(2.5);
-});
-
-// ── Create Account Handler ──
-bottomTab.addEventListener('click', () => {
-  if (bottomTab.textContent !== 'Create Account') return;
-  openModal();
-});
-
-// ── Lobby Music ──
-// ── Web Audio API Setup ──
+// ── Web Audio API Setup (Lobby Music Normal) ──
 let audioCtx = null;
 let sourceNode = null;
 let gainNode = null;
-let lowpassNode = null;
-let convolverNode = null;
-let dryGain = null;
-let wetGain = null;
-let lobbyAudioReady = false;
 
 const lobbyMusic = new Audio('assets/audio/lobbyost.m4a');
 lobbyMusic.loop = true;
@@ -2551,869 +1704,151 @@ lobbyMusic.crossOrigin = 'anonymous';
 
 function buildAudioGraph() {
   if (audioCtx) return;
-  audioCtx    = new (window.AudioContext || window.webkitAudioContext)();
-  sourceNode  = audioCtx.createMediaElementSource(lobbyMusic);
-  gainNode    = audioCtx.createGain();
-
-  // Low-pass filter: suara terendam/teredam
-  lowpassNode = audioCtx.createBiquadFilter();
-  lowpassNode.type      = 'lowpass';
-  lowpassNode.frequency.value = 400;   // awal: sangat teredam
-  lowpassNode.Q.value   = 1.2;
-
-  // Convolver untuk reverb goa
-  convolverNode = audioCtx.createConvolver();
-  buildCaveIR(audioCtx).then(ir => { convolverNode.buffer = ir; });
-
-  // Dry/wet mix
-  dryGain = audioCtx.createGain();
-  wetGain = audioCtx.createGain();
-  dryGain.gain.value = 0.4;   // awal: cave effect (masih kedengaran)
-  wetGain.gain.value = 0.8;
-
-  // Graph: source → lowpass → dryGain → gain → output
-  //                         → convolver → wetGain → gain → output
-  sourceNode.connect(lowpassNode);
-  lowpassNode.connect(dryGain);
-  lowpassNode.connect(convolverNode);
-  convolverNode.connect(wetGain);
-  dryGain.connect(gainNode);
-  wetGain.connect(gainNode);
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  sourceNode = audioCtx.createMediaElementSource(lobbyMusic);
+  gainNode = audioCtx.createGain();
+  sourceNode.connect(gainNode);
   gainNode.connect(audioCtx.destination);
-
   gainNode.gain.value = 1.0;
-  lobbyAudioReady = true;
 }
 
-// Buat impulse response goa buatan (synthetic cave reverb)
-function buildCaveIR(ctx) {
-  return new Promise(resolve => {
-    const sampleRate = ctx.sampleRate;
-    const duration   = 3.5;   // detik reverb tail
-    const length     = Math.floor(sampleRate * duration);
-    const ir         = ctx.createBuffer(2, length, sampleRate);
-
-    for (let ch = 0; ch < 2; ch++) {
-      const data = ir.getChannelData(ch);
-      for (let i = 0; i < length; i++) {
-        // Exponential decay + random noise → goa effect
-        const decay = Math.pow(1 - i / length, 2.5);
-        data[i] = (Math.random() * 2 - 1) * decay;
-      }
-    }
-    resolve(ir);
-  });
+function setNormalEffect() {
+  // Ga perlu cave effect lagi
 }
 
-// Transisi efek: loading (terendam goa) → normal (crossfade smooth)
-function setLoadingEffect() {
-  if (!lobbyAudioReady) return;
-  const t = audioCtx.currentTime;
-  // Low-pass 600Hz: suara teredam tapi masih kedengaran jelas
-  lowpassNode.frequency.setTargetAtTime(600, t, 0.15);
-  lowpassNode.Q.value = 2.0;
-  // Volume tidak dikurangi — tetap keras, hanya warna suaranya berubah
-  gainNode.gain.setTargetAtTime(1.0, t, 0.1);
-  // Reverb goa dominan
-  dryGain.gain.setTargetAtTime(0.4, t, 0.15);
-  wetGain.gain.setTargetAtTime(0.8, t, 0.15);
-}
-
-function setNormalEffect(durationSec = 2.5) {
-  if (!lobbyAudioReady) return;
-  const t  = audioCtx.currentTime;
-  const tc = durationSec / 3;
-  // Angkat low-pass filter perlahan ke full range
-  lowpassNode.frequency.setTargetAtTime(18000, t, tc);
-  // Crossfade dry/wet → full dry
-  dryGain.gain.setTargetAtTime(1.0, t, tc);
-  wetGain.gain.setTargetAtTime(0.0, t, tc);
-  // Gain tetap penuh
-  gainNode.gain.setTargetAtTime(1.0, t, 0.1);
-}
-
-// ── Prepare Menu (render di balik slide, tidak terlihat user) ──
+// ── Prepare & Show Menu ──
 function prepareMenu() {
-  // Render screen-menu di belakang slide
-  const menuScreen = document.getElementById('screen-menu');
-  menuScreen.style.opacity = '1';
-  menuScreen.style.pointerEvents = 'none';
-  menuScreen.classList.add('active');
-  // Musik sudah berjalan sejak loading screen — tidak perlu mulai lagi
+  // Kosongkan kalau ada logic render belakang slide
 }
 
-// ── Show Main Menu (switch screen tepat sebelum slide keluar) ──
 function showMenu() {
-  // Sembunyikan semua screen loading
-  document.querySelectorAll('.screen:not(#screen-menu)').forEach(s => {
-    s.classList.remove('active');
-    s.style.opacity = '0';
-  });
-
-  // Pastikan screen-menu aktif & visible
   const menuScreen = document.getElementById('screen-menu');
   menuScreen.classList.add('active');
   menuScreen.style.opacity = '1';
   menuScreen.style.pointerEvents = 'all';
 
-  // Sync profil akun ke bottom bar
   const account = getAccount();
   if (account) {
-    const el = document.getElementById('bar-name');
-    const av = document.getElementById('bar-avatar');
-    if (el) el.textContent = account.firstname + (account.lastname ? ' ' + account.lastname : '');
-    if (av) av.src = account.avatar || 'assets/user.png';
+    document.getElementById('bar-name').textContent = account.firstname + (account.lastname ? ' ' + account.lastname : '');
+    document.getElementById('bar-avatar').src = account.avatar || 'assets/user.png';
   }
 
-  // Crossfade efek: dari terendam/goa → normal smooth (2.5 detik)
-  setNormalEffect(2.5);
-}
-
-// ── PIN System ──
-const PIN_CORRECT = '64154△';
-let pinBuffer = '';
-let pinLocked = false;
-
-function pinUpdateDots() {
-  for (let i = 0; i < 6; i++) {
-    const dot = document.getElementById('dot-' + i);
-    dot.classList.remove('filled', 'error');
-    if (i < pinBuffer.length) dot.classList.add('filled');
-  }
-}
-
-function pinShakeError() {
-  for (let i = 0; i < 6; i++) {
-    const dot = document.getElementById('dot-' + i);
-    dot.classList.remove('filled');
-    dot.classList.add('error');
-  }
-  const err = document.getElementById('pin-error');
-  err.classList.add('show');
-  setTimeout(() => {
-    window.location.href = 'https://youtu.be/dQw4w9WgXcQ?si=tjSiQ-MRxyb_o87U';
-  }, 1200);
-}
-
-function pinHandleKey(val) {
-  if (pinLocked) return;
-  if (val === 'DEL') {
-    pinBuffer = pinBuffer.slice(0, -1);
-    pinUpdateDots();
-    return;
-  }
-  if (pinBuffer.length >= 6) return;
-  pinBuffer += val;
-  pinUpdateDots();
-
-  if (pinBuffer.length === 6) {
-    pinLocked = true;
-    setTimeout(() => {
-      if (pinBuffer === PIN_CORRECT) {
-        // Benar — lanjut ke game
-        pinCorrectHandler();
-      } else {
-        pinShakeError();
-      }
-    }, 180);
-  }
-}
-
-// Bind numpad keys
-document.querySelectorAll('.pin-key[data-val]').forEach(key => {
-  const handler = (e) => {
-    e.preventDefault();
-    pinHandleKey(key.dataset.val);
-  };
-  key.addEventListener('touchstart', handler, { passive: false });
-  key.addEventListener('click', handler);
-});
-document.getElementById('pin-del').addEventListener('click', () => pinHandleKey('DEL'));
-document.getElementById('pin-del').addEventListener('touchstart', e => {
-  e.preventDefault(); pinHandleKey('DEL');
-}, { passive: false });
-
-// ── Dismiss tap-start overlay ──
-async function dismissTapStart() {
-  const tapEl = document.getElementById('tap-start');
-  tapEl.style.transition = 'opacity 0.4s ease';
-  tapEl.style.opacity = '0';
-  await wait(420);
-  tapEl.style.display = 'none';
-}
-
-let pinCorrectHandler = () => {}; // akan diisi oleh runSequence
-
-// ── Main Sequence ──
-async function runSequence() {
-  const tapEl = document.getElementById('tap-start');
-
-  // 0. Tunggu PIN benar — gesture tersedia untuk audio & fullscreen
-  await new Promise(resolve => {
-    pinCorrectHandler = async () => {
-      await goFullscreenLandscape();
-      await dismissTapStart();
-      resolve();
-    };
-  });
-
-  // 1. Splashscreen 3 detik
-  showScreen('screen-splash');
-  await wait(3000);
-
-  // 2. Layar hitam 3 detik
-  showScreen('screen-black');
-  await wait(3000);
-
-  // 3. Loading screen muncul
-  showScreen('screen-load');
-
-  // Musik mulai di sini dengan efek loading (cave/redam)
+  // Musik langsung normal
   buildAudioGraph();
   lobbyMusic.currentTime = 0;
-  lobbyMusic.play().then(() => {
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    setLoadingEffect();
-  }).catch(() => {});
-
-  await wait(3000);
-
-  const account = getAccount();
-
-  // Loading steps
-  await showLoadingText('Connecting servers', 4000);
-  await showLoadingText('Check', 4000);
-  await showLoadingText('Check account', 5000);
-  await showLoadingText('Loading', 3000);
-  await showLoadingText('Load resource', 4000);
-  await showLoadingText('Loading', 5000);
-  await hideLoadingText(2000);
-
-  if (account) {
-    const displayName = account.firstname + (account.lastname ? ' ' + account.lastname : '');
-    showNotif(account.avatar, displayName);
-    showTab('Tap To Continue');
-  } else {
-    showTab('Create Account');
-  }
+  lobbyMusic.play().catch(() => {});
+  setNormalEffect();
 }
 
-window.addEventListener('load', runSequence);
+// ── Main Entry Point ──
+window.addEventListener('load', async () => {
+  await goFullscreenLandscape();
+  showMenu();
 
-// ══════════════════════════════════════════════════════════
-// LOBBY LAYER CAROUSEL — Sistem posisi ABSOLUT, anti-bug
-// Posisi tiap layer selalu dihitung ulang dari targetLayer,
-// bukan kumulatif. Tidak ada state drift.
-// ══════════════════════════════════════════════════════════
-let currentLayer = 2;
-const menuLayerMap = { quickmatch: 2, customgame: 2, locker: 1 };
-let activeMenu = 'quickmatch';
-
-// Kunci animasi: gunakan queue 1 item, bukan boolean lock
-// Ini mencegah klik cepat memblokir selamanya
-let pendingLayer = null;
-let carouselBusy = false;
-
-// Posisi absolut tiap layer berdasarkan layer aktif
-// Selalu 3 slot: kiri(-1), tengah(0), kanan(1)
-// Layer aktif = 0, yang lain di kiri/kanan sesuai urutan
-function getAbsolutePositions(active) {
-  // urutan: 1 < 2 < 3
-  // active=2 → 1 di kiri(-1), 2 tengah(0), 3 kanan(1)
-  // active=1 → 1 tengah(0), 2 kanan(1), 3 jauh kanan(2)
-  // active=3 → 1 jauh kiri(-2), 2 kiri(-1), 3 tengah(0)
-  const offset = active - 2; // -1, 0, atau 1
-  return {
-    1: -1 - offset,
-    2:  0 - offset,
-    3:  1 - offset
-  };
-}
-
-// Terapkan transform ke layer, dengan atau tanpa animasi
-function placeLayer(id, x, animate) {
-  const el = document.getElementById('layer-' + id);
-  if (!el) return;
-  // Force transition off dulu, lalu set posisi
-  el.style.transition = 'none';
-  if (!animate) {
-    el.style.transform = `translateX(${x * 100}%)`;
-  } else {
-    // Double rAF agar browser commit posisi awal sebelum animasi
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        el.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
-        el.style.transform = `translateX(${x * 100}%)`;
-      });
-    });
-  }
-}
-
-// Snap semua layer ke posisi absolut aktif, tanpa animasi
-function snapToLayer(active) {
-  const pos = getAbsolutePositions(active);
-  [1, 2, 3].forEach(id => placeLayer(id, pos[id], false));
-}
-
-
-
-// ── Overlay fade untuk elemen 2.png ──
-function setLayer2Overlay(show) {
-  const ov = document.getElementById('layer2-overlay');
-  if (!ov) return;
-  if (show) {
-    ov.classList.remove('fading');
-    ov.style.pointerEvents = '';
-  } else {
-    ov.classList.add('fading');
-    ov.style.pointerEvents = 'none';
-  }
-}
-
-// ── CORE: pindah ke layer target ──
-function doTransition(from, to) {
-  carouselBusy = true;
-
-  const posFrom = getAbsolutePositions(from);
-  const posTo   = getAbsolutePositions(to);
-  const layersEl = document.getElementById('lobby-layers');
-
-  // Langkah 1: snap semua layer ke posisi FROM tanpa animasi
-  // (ini fix bug: kalau sebelumnya ada skip, posisi DOM mungkin salah)
-  [1, 2, 3].forEach(id => {
-    const el = document.getElementById('layer-' + id);
-    if (!el) return;
-    el.style.transition = 'none';
-    el.style.transform = `translateX(${posFrom[id] * 100}%)`;
-  });
-
-  // Langkah 2: force reflow agar browser commit posisi FROM
-  layersEl.offsetHeight;
-
-  // Langkah 3: mulai fade elemen overlay jika meninggalkan layer 2
-  if (from === 2) setLayer2Overlay(false);
-
-  // Langkah 4: animasi ke posisi TO
-  [1, 2, 3].forEach(id => {
-    const el = document.getElementById('layer-' + id);
-    if (!el) return;
-    el.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
-    el.style.transform = `translateX(${posTo[id] * 100}%)`;
-  });
-
-
-  // Langkah 6: update UI
-  currentLayer = to;
-  updateBackButton(to);
-
-  // Langkah 7: setelah animasi selesai
-  setTimeout(() => {
-    // Snap final (bebas dari floating point drift)
-    snapToLayer(to);
-    // Fade in overlay jika tiba di layer 2
-    if (to === 2) setLayer2Overlay(true);
-    carouselBusy = false;
-    // Proses pending jika ada
-    if (pendingLayer !== null && pendingLayer !== currentLayer) {
-      const next = pendingLayer;
-      pendingLayer = null;
-      setLobbyLayer(next);
-    } else {
-      pendingLayer = null;
-    }
-  }, 520);
-}
-
-function setLobbyLayer(to) {
-  if (to === currentLayer) return;
-  if (carouselBusy) {
-    // Simpan hanya request terakhir (antrian 1 slot)
-    pendingLayer = to;
-    return;
-  }
-  doTransition(currentLayer, to);
-}
-
-function updateBackButton(layer) {
-  const confirmBtn   = document.getElementById('bar-confirm-btn');
-  const confirmKey   = document.getElementById('bar-confirm-key');
-  const confirmLabel = document.getElementById('bar-confirm-label');
-  if (layer === 2) {
-    confirmBtn.classList.remove('visible');
-  } else {
-    confirmKey.textContent = 'B';
-    confirmLabel.textContent = 'Back';
-    confirmBtn.classList.add('visible');
-  }
-}
-
-function setActiveMenuItem(menuId) {
-  document.querySelectorAll('#lobby-menu .lobby-menu-item').forEach(el => el.classList.remove('active'));
-  const el = document.querySelector(`[data-menu="${menuId}"]`);
-  if (el) el.classList.add('active');
-  activeMenu = menuId;
-}
-
-// Init: snap ke layer 2
-snapToLayer(2);
-setLayer2Overlay(true);
-
-// Klik menu item kiri
-document.getElementById('lobby-menu').addEventListener('click', (e) => {
-  const item = e.target.closest('.lobby-menu-item');
-  if (!item) return;
-  const menuId = item.dataset.menu;
-  if (!menuId) return;
-  // Quick Match yang sudah active: langsung buka char screen
-  if (menuId === 'quickmatch' && menuId === activeMenu) {
-    openCharacterScreen();
-    return;
-  }
-  if (menuId === activeMenu) return;
-  setActiveMenuItem(menuId);
-  const target = menuLayerMap[menuId];
-  if (target !== currentLayer) setLobbyLayer(target);
+  // Optional: kalau mau langsung buka character screen atau yang lain, panggil disini
+  // openCharacterScreen();
 });
 
-// ITEM SHOP modal
+// ── Item Shop ──
 function openItemShop() {
-  const modal = document.getElementById('itemshop-modal');
-  modal.classList.remove('closing');
-  modal.classList.add('open');
+  document.getElementById('itemshop-modal').classList.add('open');
 }
 function closeItemShop() {
-  const modal = document.getElementById('itemshop-modal');
-  modal.classList.add('closing');
-  setTimeout(() => {
-    modal.classList.remove('open');
-    modal.classList.remove('closing');
-  }, 260);
+  document.getElementById('itemshop-modal').classList.remove('open');
 }
-document.getElementById('itemshop-dim').addEventListener('click', closeItemShop);
-document.getElementById('btn-itemshop').addEventListener('click', openItemShop);
-document.getElementById('btn-itemshop').addEventListener('touchstart', e => {
-  e.preventDefault(); openItemShop();
-}, { passive: false });
+document.getElementById('itemshop-dim')?.addEventListener('click', closeItemShop);
 
-// BACK → layer 2
-function goBack() {
-  if (currentLayer === 2) return;
-  setActiveMenuItem('quickmatch');
-  setLobbyLayer(2);
+// ── Friends Modal ──
+function openFriends() {
+  document.getElementById('friends-modal').classList.add('open');
 }
-document.getElementById('bar-confirm-btn').addEventListener('click', goBack);
-document.getElementById('bar-confirm-btn').addEventListener('touchstart', e => {
-  e.preventDefault(); goBack();
-}, { passive: false });
+function closeFriends() {
+  document.getElementById('friends-modal').classList.remove('open');
+}
+document.getElementById('friends-dim')?.addEventListener('click', closeFriends);
 
 // ── Touch Sound FX ──
 const touchSound = new Audio('assets/soundfx/touch.mp3');
 touchSound.preload = 'auto';
-
 document.addEventListener('touchstart', () => {
   touchSound.currentTime = 0;
   touchSound.play().catch(() => {});
 }, { passive: true });
 
-document.addEventListener('mousedown', () => {
-  touchSound.currentTime = 0;
-  touchSound.play().catch(() => {});
+// ── Carousel Logic (tetep ada) ──
+let currentLayer = 2;
+const menuLayerMap = { quickmatch: 2, customgame: 2, locker: 1 };
+let activeMenu = 'quickmatch';
+
+function getAbsolutePositions(active) {
+  const offset = active - 2;
+  return { 1: -1 - offset, 2: 0 - offset, 3: 1 - offset };
+}
+
+function placeLayer(id, x, animate = false) {
+  const el = document.getElementById('layer-' + id);
+  if (!el) return;
+  el.style.transition = animate ? 'transform 0.5s cubic-bezier(0.4,0,0.2,1)' : 'none';
+  el.style.transform = `translateX(${x * 100}%)`;
+}
+
+function snapToLayer(active) {
+  const pos = getAbsolutePositions(active);
+  [1,2,3].forEach(id => placeLayer(id, pos[id]));
+}
+
+function doTransition(from, to) {
+  const posFrom = getAbsolutePositions(from);
+  const posTo = getAbsolutePositions(to);
+
+  [1,2,3].forEach(id => placeLayer(id, posFrom[id]));
+
+  [1,2,3].forEach(id => placeLayer(id, posTo[id], true));
+
+  currentLayer = to;
+  updateBackButton(to);
+}
+
+function setLobbyLayer(to) {
+  if (to === currentLayer) return;
+  doTransition(currentLayer, to);
+}
+
+function updateBackButton(layer) {
+  // Logic back button kalau ada
+}
+
+snapToLayer(2);
+
+// Menu klik
+document.getElementById('lobby-menu')?.addEventListener('click', e => {
+  const item = e.target.closest('.lobby-menu-item');
+  if (!item) return;
+  const menuId = item.dataset.menu;
+  if (!menuId || menuId === activeMenu) return;
+
+  if (menuId === 'quickmatch') {
+    // Langsung ke character select kalau quickmatch
+    openCharacterScreen();
+    return;
+  }
+
+  setLobbyLayer(menuLayerMap[menuId]);
+  activeMenu = menuId;
 });
 
-// ══════════════════════════════════════════════════════
-// CHARACTER SELECTION
-// ══════════════════════════════════════════════════════
-
-// Audio untuk character screen (lewat Web Audio untuk cave effect)
-const charMusic = new Audio('assets/audio/characterost.m4a');
-charMusic.loop = true;
-charMusic.crossOrigin = 'anonymous';
-
-let charAudioCtx = null;
-let charSourceNode = null;
-let charGainNode = null;
-let charLowpassNode = null;
-let charDryGain = null;
-let charWetGain = null;
-let charConvolverNode = null;
-let charAudioReady = false;
-
-function buildCharAudioGraph() {
-  if (charAudioCtx || !audioCtx) return; // pakai audioCtx yang sama
-  // Gunakan audioCtx yang sama agar bisa crossfade bersama
-  charSourceNode  = audioCtx.createMediaElementSource(charMusic);
-  charGainNode    = audioCtx.createGain();
-  charGainNode.gain.value = 0;
-
-  charLowpassNode = audioCtx.createBiquadFilter();
-  charLowpassNode.type = 'lowpass';
-  charLowpassNode.frequency.value = 18000; // normal dulu
-  charLowpassNode.Q.value = 1.2;
-
-  charDryGain = audioCtx.createGain();
-  charWetGain = audioCtx.createGain();
-  charDryGain.gain.value = 1.0;
-  charWetGain.gain.value = 0.0;
-
-  charConvolverNode = audioCtx.createConvolver();
-  buildCaveIR(audioCtx).then(ir => { charConvolverNode.buffer = ir; });
-
-  charSourceNode.connect(charLowpassNode);
-  charLowpassNode.connect(charDryGain);
-  charLowpassNode.connect(charConvolverNode);
-  charConvolverNode.connect(charWetGain);
-  charDryGain.connect(charGainNode);
-  charWetGain.connect(charGainNode);
-  charGainNode.connect(audioCtx.destination);
-
-  charAudioCtx = audioCtx; // flag sudah dibuild
-  charAudioReady = true;
+// ── Character Screen Functions (contoh minimal) ──
+function openCharacterScreen() {
+  document.getElementById('screen-char').classList.add('active');
+  document.getElementById('screen-menu').classList.remove('active');
 }
 
-function setCharLoadingEffect() {
-  if (!charAudioReady) return;
-  const t = audioCtx.currentTime;
-  charLowpassNode.frequency.setTargetAtTime(600, t, 0.15);
-  charLowpassNode.Q.value = 2.0;
-  charDryGain.gain.setTargetAtTime(0.4, t, 0.15);
-  charWetGain.gain.setTargetAtTime(0.8, t, 0.15);
-}
-
-function setCharNormalEffect(durationSec = 2.5) {
-  if (!charAudioReady) return;
-  const t  = audioCtx.currentTime;
-  const tc = durationSec / 3;
-  charLowpassNode.frequency.setTargetAtTime(18000, t, tc);
-  charDryGain.gain.setTargetAtTime(1.0, t, tc);
-  charWetGain.gain.setTargetAtTime(0.0, t, tc);
-}
-
-// Preload assets karakter
-const charAssets = [
-  'assets/bgcharacter.png',
-  'assets/audio/characterost.m4a',
-];
-
-function preloadCharAssets() {
-  return new Promise(resolve => {
-    let loaded = 0;
-    const total = charAssets.length;
-    if (total === 0) { resolve(); return; }
-
-    charAssets.forEach(src => {
-      if (src.endsWith('.m4a') || src.endsWith('.mp3') || src.endsWith('.ogg')) {
-        const a = new Audio();
-        a.oncanplaythrough = () => { loaded++; if (loaded >= total) resolve(); };
-        a.onerror = () => { loaded++; if (loaded >= total) resolve(); };
-        a.src = src;
-      } else {
-        const img = new Image();
-        img.onload  = () => { loaded++; if (loaded >= total) resolve(); };
-        img.onerror = () => { loaded++; if (loaded >= total) resolve(); };
-        img.src = src;
-      }
-    });
-
-    // Timeout fallback: maks 5 detik
-    setTimeout(resolve, 5000);
-  });
-}
-
-// Crossfade dari lobbyMusic ke charMusic (keduanya lewat Web Audio)
-function crossfadeToChar(durationSec = 1.2) {
-  return new Promise(resolve => {
-    // Build char audio graph jika belum
-    buildCharAudioGraph();
-
-    const steps = 40;
-    const interval = (durationSec * 1000) / steps;
-    let step = 0;
-
-    if (charGainNode) charGainNode.gain.value = 0;
-    charMusic.currentTime = 0;
-    charMusic.play().catch(() => {});
-
-    const fade = setInterval(() => {
-      step++;
-      const t = step / steps;
-      if (gainNode)     gainNode.gain.value     = Math.max(0, 1 - t);
-      if (charGainNode) charGainNode.gain.value = Math.min(1, t);
-      if (step >= steps) {
-        clearInterval(fade);
-        lobbyMusic.pause();
-        if (gainNode) gainNode.gain.value = 1;
-        resolve();
-      }
-    }, interval);
-  });
-}
-
-// Crossfade charMusic → lobbyMusic, DENGAN cave effect aktif
-// Cave effect dihilangkan TERPISAH setelah maskOut (dipanggil dari charBack)
-function crossfadeToLobby(durationSec = 1.0) {
-  return new Promise(resolve => {
-    if (!lobbyAudioReady) { resolve(); return; }
-
-    const now = audioCtx.currentTime;
-
-    // ── Siapkan lobby audio: cancel scheduled, set cave effect, gain=0 ──
-    lowpassNode.frequency.cancelScheduledValues(now);
-    dryGain.gain.cancelScheduledValues(now);
-    wetGain.gain.cancelScheduledValues(now);
-    gainNode.gain.cancelScheduledValues(now);
-    // Cave effect aktif di lobby (bukan normal!) — masih di splashloading
-    lowpassNode.frequency.setValueAtTime(600, now);
-    lowpassNode.Q.value = 2.0;
-    dryGain.gain.setValueAtTime(0.4, now);
-    wetGain.gain.setValueAtTime(0.8, now);
-    gainNode.gain.setValueAtTime(0, now); // mulai silent, fade in
-
-    if (audioCtx.state === 'suspended') audioCtx.resume();
-    lobbyMusic.play().catch(() => {});
-
-    // ── Fade: charGain 1→0, lobbyGain 0→1 (keduanya cave effect) ──
-    const steps = 40;
-    const interval = (durationSec * 1000) / steps;
-    let step = 0;
-    const fade = setInterval(() => {
-      step++;
-      const t = step / steps;
-      if (charGainNode) charGainNode.gain.value = Math.max(0, 1 - t);
-      gainNode.gain.value = Math.min(1, t);
-      if (step >= steps) {
-        clearInterval(fade);
-        charMusic.pause();
-        if (charGainNode) charGainNode.gain.value = 0;
-        resolve();
-      }
-    }, interval);
-  });
-}
-
-// Buka Character Screen dari Quick Match
-async function openCharacterScreen() {
-  // Preload assets + siapkan char audio graph sebelum slide
-  preloadCharAssets();
-  buildCharAudioGraph(); // char audio graph siap → cave effect aktif di slideShow
-
-  // slideShow 10 detik:
-  //   - saat mulai: cave effect ke KEDUA musik (lobby & char)
-  //   - di detik ke-7: crossfade lobby → charMusic
-  await slideShow(() => {
-    crossfadeToChar(1.5);
-  }, 10000);
-
-  // Setelah 10 detik: swap screen di balik slide, lalu slide keluar
-  const scr = document.getElementById('screen-char');
-  scr.classList.add('active');
-  // Pulihkan char audio ke normal (cave effect sudah selesai saat slide out)
-  if (charAudioReady) setCharNormalEffect(1.5);
-
-  const menuScr = document.getElementById('screen-menu');
-  menuScr.classList.remove('active');
-  menuScr.style.opacity = '0';
-  menuScr.style.pointerEvents = 'none';
-
-  await slideOut();
-  // Reset tampilan timer dulu sebelum mulai countdown
-  const timerEl = document.getElementById('char-timer-val');
-  timerEl.style.color = 'white';
-  timerEl.textContent = '20';
-  startCharTimer(20);
-}
-
-// Kembali ke menu dari character screen
-async function charBack() {
-  clearInterval(charTimerInterval);
-
-  // slideShow 10 detik, di detik-7 crossfade ke lobby
-  await slideShow(() => {
-    crossfadeToLobby(1.5);
-  }, 10000);
-
-  // Swap screen
-  const menuScr = document.getElementById('screen-menu');
-  menuScr.classList.add('active');
-  menuScr.style.opacity = '1';
-  menuScr.style.pointerEvents = '';
-  snapToLayer(currentLayer);
-  if (currentLayer === 2) setLayer2Overlay(true);
-
-  document.getElementById('screen-char').classList.remove('active');
-
-  await slideOut();
-
-  // ── SETELAH mask tutup: angkat cave effect lobby → normal ──
-  if (lobbyAudioReady) setNormalEffect(2.0);
-
-  // Reset char audio graph ke normal untuk pemakaian berikutnya
-  if (charAudioReady) {
-    const now = audioCtx.currentTime;
-    charLowpassNode.frequency.cancelScheduledValues(now);
-    charLowpassNode.frequency.setValueAtTime(18000, now);
-    charDryGain.gain.cancelScheduledValues(now);
-    charDryGain.gain.setValueAtTime(1.0, now);
-    charWetGain.gain.cancelScheduledValues(now);
-    charWetGain.gain.setValueAtTime(0.0, now);
-  }
-}
-
-// Timer countdown
-let charTimerInterval = null;
 function startCharTimer(seconds) {
-  clearInterval(charTimerInterval);
-  const el = document.getElementById('char-timer-val');
-  let t = seconds;
-  el.textContent = t;
-  charTimerInterval = setInterval(() => {
-    t--;
-    el.textContent = t;
-    if (t <= 10) el.style.color = '#ff5555';
-    else el.style.color = 'white';
-    if (t <= 0) clearInterval(charTimerInterval);
-  }, 1000);
+  // Timer logic kalau masih dipake
 }
 
-// Pilih karakter dari stage
-let selectedCharIdx = 3; // default: slot tengah (You)
-document.querySelectorAll('.char-slot').forEach(slot => {
-  slot.addEventListener('click', () => {
-    const idx = parseInt(slot.dataset.idx);
-    if (isNaN(idx)) return;
-    document.querySelectorAll('.char-slot').forEach(s => s.classList.remove('selected'));
-    slot.classList.add('selected');
-    selectedCharIdx = idx;
-  });
-  slot.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    slot.click();
-  }, { passive: false });
-});
-
-// Pilih karakter dari avatar row bawah
-document.querySelectorAll('.char-avatar-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.char-avatar-btn').forEach(b => b.classList.remove('selected'));
-    btn.classList.add('selected');
-  });
-  btn.addEventListener('touchstart', e => {
-    e.preventDefault(); btn.click();
-  }, { passive: false });
-});
-
-// Quick Match → ditangani di lobby-menu listener
-
-// ══════════════════════════════════════════
-// FRIENDS MODAL
-// ══════════════════════════════════════════
-function openFriends() {
-  const m = document.getElementById('friends-modal');
-  m.classList.remove('closing');
-  m.classList.add('open');
-}
-function closeFriends() {
-  const m = document.getElementById('friends-modal');
-  m.classList.add('closing');
-  setTimeout(() => {
-    m.classList.remove('open', 'closing');
-  }, 240);
-}
-function switchFriendsTab(tab) {
-  document.querySelectorAll('.friends-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-}
-function toggleFriendsSection(header) {
-  const body = header.nextElementSibling;
-  const chev = header.querySelector('.friends-section-chevron');
-  if (body.style.display === 'none') {
-    body.style.display = '';
-    chev.textContent = '▲';
-    header.classList.remove('collapsed');
-  } else {
-    body.style.display = 'none';
-    chev.textContent = '▼';
-    header.classList.add('collapsed');
-  }
-}
-
-// Bar-squad (0/0) → buka friends
-document.querySelector('.bar-squad').addEventListener('click', openFriends);
-document.querySelector('.bar-squad').addEventListener('touchstart', e => {
-  e.preventDefault(); openFriends();
-}, { passive: false });
-
-// ── PWA ──
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredPrompt = e; });
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
-
-// ── HIGH REFRESH RATE UNLOCK (60/90/120Hz) ──
-// Gunakan requestAnimationFrame dengan timestamp tracking
-// untuk memastikan animasi berjalan di fps tertinggi yang didukung layar.
-// Android WebAPK + Chrome mendukung 90/120Hz otomatis via rAF jika:
-// 1. will-change: transform sudah di elemen animasi (sudah)
-// 2. tidak ada layout thrashing per frame
-// 3. GPU compositing aktif (transform/opacity only)
-(function unlockHighFPS() {
-  // Deteksi refresh rate layar via rAF timing
-  let lastT = 0, samples = [], detected = 0;
-  function probe(t) {
-    if (lastT) samples.push(t - lastT);
-    lastT = t;
-    if (samples.length < 30) { requestAnimationFrame(probe); return; }
-    const avg = samples.reduce((a,b)=>a+b,0) / samples.length;
-    const fps = Math.round(1000 / avg);
-    // Snap ke standar: 60, 90, 120
-    detected = fps >= 110 ? 120 : fps >= 80 ? 90 : 60;
-    // Terapkan CSS custom property untuk durasi animasi proporsional
-    // Semakin tinggi fps, semakin singkat durasi (lebih responsif)
-    const scale = 60 / detected; // 120fps → 0.5x duration
-    document.documentElement.style.setProperty('--fps-scale', scale.toFixed(3));
-    document.documentElement.setAttribute('data-fps', detected);
-    // Paksa Chrome/Android untuk mengaktifkan 90/120Hz mode
-    // dengan menjaga rAF loop aktif di background layar utama
-    if (detected > 60) keepAliveRAF();
-  }
-  requestAnimationFrame(probe);
-
-  // Loop rAF ringan yang menjaga GPU compositor aktif
-  // Ini mencegah Android menurunkan refresh rate ke 60Hz saat idle
-  let keepAlive = true;
-  function keepAliveRAF() {
-    const dummy = document.createElement('div');
-    dummy.style.cssText = 'position:fixed;width:1px;height:1px;top:-2px;left:-2px;will-change:transform;pointer-events:none;';
-    document.body.appendChild(dummy);
-    let phase = 0;
-    function loop() {
-      if (!keepAlive) return;
-      // Sub-pixel transform agar GPU tidak sleep tapi tidak visible
-      dummy.style.transform = `translateX(${Math.sin(phase) * 0.1}px)`;
-      phase += 0.05;
-      requestAnimationFrame(loop);
-    }
-    requestAnimationFrame(loop);
-  }
-})();
-
-
-  // ══ CUSTOM POINTER: ikuti mouse & touch ══
-  (function() {
-    const ptr = document.getElementById('custom-pointer');
-    if (!ptr) return;
-    document.addEventListener('mousemove', function(e) {
-      ptr.style.transform = 'translate(' + (e.clientX - 2) + 'px, ' + (e.clientY - 2) + 'px)';
-    }, { passive: true });
-    document.addEventListener('touchmove', function(e) {
-      const t = e.touches[0];
-      ptr.style.transform = 'translate(' + (t.clientX - 2) + 'px, ' + (t.clientY - 2) + 'px)';
-    }, { passive: true });
-    document.addEventListener('touchstart', function(e) {
-      const t = e.touches[0];
-      ptr.style.transform = 'translate(' + (t.clientX - 2) + 'px, ' + (t.clientY - 2) + 'px)';
-    }, { passive: true });
-    document.addEventListener('mouseleave', function() { ptr.style.opacity = '0'; });
-    document.addEventListener('mouseenter', function() { ptr.style.opacity = '1'; });
-  })();
+// Init carousel
+snapToLayer(2);
 
 </script>
 </body>
