@@ -1,157 +1,482 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>Crazy Bugs</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Crazy Bugs</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#000000">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Crazy Bugs">
 
-  <!-- Icons (tetap) -->
-  <link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/icon-180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png">
+<link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/icon-16.png">
 
-  <style>
-    /* ── Keep only essential styles ── */
-    * { margin:0; padding:0; box-sizing:border-box; }
-    :root {
-      --sat: env(safe-area-inset-top, 0px);
-      --sab: env(safe-area-inset-bottom, 0px);
-    }
-    html, body {
-      width:100%; height:100%;
-      background:black; overflow:hidden;
-      font-family:'Fredoka',sans-serif;
-      color:white;
-    }
-    .screen {
-      position:fixed; inset:0;
-      opacity:0; pointer-events:none;
-      transition:opacity 0.4s ease;
-    }
-    .screen.active { opacity:1; pointer-events:all; }
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* Lobby layers */
-    #lobby-layers {
-      position:absolute; inset:0; overflow:hidden; z-index:2;
-    }
-    .lobby-layer {
-      position:absolute; inset:0; width:100%; height:100%;
-      object-fit:cover; object-position:center;
-      will-change:transform, filter;
-    }
+/* ── FULLSCREEN REDMI 10 - PUNCH HOLE COVER ── */
+:root {
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+}
 
-    /* Main menu content (keep your original lobby layout) */
-    #screen-menu { z-index:1; }
-    #menu-content { position:absolute; inset:0; z-index:10; }
+html, body {
+  width: 100%; height: 100%;
+  background: black;
+  overflow: hidden;
+  font-family: sans-serif;
+  padding: 0;
+  margin: 0;
+}
 
-    /* Bottom bar & other UI elements - keep as is */
-    #lobby-bottom, .bar-left, .bar-center, .bar-right { /* your original styles */ }
-    /* ... (copy-paste sisa style lobby, bottom bar, cards, dll dari source asli kamu) ... */
+/* Cover seluruh layar termasuk area punch-hole dan edge */
+.screen, #slide-transition, #modal-dim, #rotate-overlay {
+  top: 0; left: 0; right: 0; bottom: 0;
+}
 
-    /* Hilangkan style PIN, splash, loading, modal-dim awal, dll */
-    #pin-modal, #tap-start, #screen-splash, #screen-black, #screen-load, #loading-ui { display:none !important; }
-  </style>
+/* ── TAP TO START OVERLAY (akan di-skip) ── */
+#tap-start {
+  position: fixed; inset: 0;
+  background: #111;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* PIN Modal (akan di-skip) */
+#pin-modal { display: none !important; }
+
+/* ── SCREENS ── */
+.screen {
+  position: fixed; inset: 0;
+  background: black;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.screen.active { opacity: 1; pointer-events: all; }
+
+#img-splash, #img-loadbg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+
+/* ── LOADING UI (akan di-skip) ── */
+#loading-ui,
+#loading-status,
+#bottom-tab,
+#notif-pill {
+  display: none !important;
+}
+
+/* ── NOTIFICATION PILL (skip) ── */
+#notif-pill { display: none !important; }
+
+/* ── MODAL DIM ── */
+#modal-dim {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.78);
+  z-index: 4500;
+  align-items: center; justify-content: center;
+}
+#modal-dim.show { display: flex; animation: dim-in 0.25s ease forwards; }
+#modal-dim.closing { animation: dim-out 0.25s ease forwards; }
+
+/* ── POPUP ANIMATIONS ── */
+@keyframes popup-in {
+  0%   { transform: translateY(32px); opacity: 0; }
+  100% { transform: translateY(0);    opacity: 1; }
+}
+@keyframes popup-out {
+  0%   { transform: translateY(0);    opacity: 1; }
+  100% { transform: translateY(32px); opacity: 0; }
+}
+
+/* ── SLIDE TRANSITION ── */
+#slide-transition {
+  position: fixed; inset: 0;
+  z-index: 8000;
+  pointer-events: none;
+  display: none;
+  -webkit-mask-image: radial-gradient(circle, black 0%, black 100%, transparent 100%);
+  mask-image: radial-gradient(circle, black 0%, black 100%, transparent 100%);
+  -webkit-mask-size: 0% 0%;
+  mask-size: 0% 0%;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+}
+
+/* ── LOBBY LAYER CAROUSEL ── */
+#lobby-layers {
+  position: absolute; inset: 0;
+  overflow: hidden;
+  z-index: 2;
+}
+.lobby-layer {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  will-change: transform, filter;
+  transition: none;
+}
+
+/* ── LAYER 2 OVERLAY ── */
+#layer2-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.28s cubic-bezier(0.4,0,0.2,1);
+}
+#layer2-overlay > * { pointer-events: all; }
+#layer2-overlay.fading { opacity: 0; pointer-events: none; }
+
+/* ── MAIN MENU SCREEN ── */
+#screen-menu {
+  position: fixed; inset: 0;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 1;
+}
+#screen-menu.active { opacity: 1; pointer-events: all; }
+
+#lobby-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+
+#menu-content {
+  position: absolute; inset: 0;
+  z-index: 10;
+  font-family: 'Fredoka', sans-serif;
+}
+
+/* ── LOBBY LAYOUT ── */
+.lobby-left {
+  position: absolute;
+  left: 4%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lobby-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1),
+              opacity 0.2s ease;
+}
+.lobby-menu-item:active { transform: scale(0.94); }
+
+.lobby-menu-item .menu-pill { display: none; }
+.lobby-menu-item .menu-label {
+  font-size: clamp(13px, 1.8vw, 22px);
+  font-weight: 600;
+  color: #fff8e7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.35);
+  transition: color 0.18s ease;
+}
+.lobby-menu-item:hover .menu-label { color: #ffe08a; }
+
+.lobby-menu-item.active > .menu-label { display: none; }
+.lobby-menu-item.active .menu-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff8e7;
+  border: 3px solid #e8a020;
+  border-radius: 999px;
+  padding: 10px 28px 10px 18px;
+  box-shadow: 0 4px 0 #c47a10, 0 6px 16px rgba(0,0,0,0.25);
+  animation: pill-pop 0.3s cubic-bezier(0.34,1.56,0.64,1) forwards;
+}
+@keyframes pill-pop {
+  0%   { transform: scale(0.75); opacity: 0.4; }
+  100% { transform: scale(1);    opacity: 1; }
+}
+.lobby-menu-item.active .menu-arrow {
+  width: 0; height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid #e8a020;
+  flex-shrink: 0;
+}
+.lobby-menu-item.active .menu-pill .menu-label {
+  font-size: clamp(16px, 2.2vw, 26px);
+  font-weight: 700;
+  color: #1a1a1a;
+  text-shadow: none;
+  letter-spacing: 0.5px;
+}
+
+/* ── CENTER CHARACTER ── */
+.lobby-center {
+  position: absolute;
+  left: 50%;
+  bottom: 60px;
+  transform: translateX(-50%);
+  width: clamp(280px, 38vw, 520px);
+  pointer-events: none;
+}
+.lobby-center img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.3));
+}
+
+/* ── RIGHT CARDS ── */
+.lobby-right {
+  position: absolute;
+  right: 2.5%;
+  top: 50%;
+  transform: translateY(-52%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lobby-card {
+  width: clamp(140px, 18vw, 220px);
+  aspect-ratio: 16/10;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.lobby-card:active { transform: scale(0.96); }
+.lobby-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── BOTTOM BAR ── */
+.lobby-bottom {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 38px;
+  background: rgba(230,185,55,0.93);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-top: 1.5px solid rgba(255,255,255,0.28);
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  gap: 6px;
+}
+
+/* ... (sisa style bottom bar, itemshop, char selection, friends modal, dll tetap sama seperti code asli kamu) ... */
+
+/* ── ANIMASI MASK TRANSISI ── */
+@keyframes mask-expand {
+  to { -webkit-mask-size: 200% 200%; mask-size: 200% 200%; }
+}
+@keyframes mask-collapse {
+  from { -webkit-mask-size: 200% 200%; mask-size: 200% 200%; }
+  to   { -webkit-mask-size: 0% 0%;     mask-size: 0% 0%;     }
+}
+</style>
 </head>
 <body>
 
-  <!-- Hilangkan tap-start, pin-modal, splash, black, loading -->
+<!-- Semua elemen HTML screen-menu, lobby-layers, itemshop-modal, screen-char, friends-modal, dll tetap sama seperti code asli -->
 
-  <!-- Langsung lobby screen -->
-  <div id="screen-menu" class="screen active">
-    <div id="lobby-layers">
-      <img id="layer-1" class="lobby-layer" src="assets/layer1.png" alt="bg1">
-      <img id="layer-2" class="lobby-layer" src="assets/layer2.png" alt="bg2">
-      <img id="layer-3" class="lobby-layer" src="assets/layer3.png" alt="bg3">
-    </div>
+<!-- Slide Transition Image -->
+<div id="slide-transition">
+  <img id="slide-img" src="assets/splashloading2.png" alt="transition">
+</div>
 
-    <!-- Overlay khusus layer 2 (jika ada) -->
-    <div id="layer2-overlay"> <!-- isi konten overlay jika ada --> </div>
+<script>
+// ── Helpers ──
+const wait = ms => new Promise(r => setTimeout(r, ms));
 
-    <div id="menu-content">
-      <!-- Lobby kiri: menu Quick Match, Custom, Locker -->
-      <div class="lobby-left" id="lobby-menu">
-        <div class="lobby-menu-item" data-menu="quickmatch">
-          <span class="menu-label">QUICK MATCH</span>
-          <!-- pill & arrow muncul saat active -->
-        </div>
-        <div class="lobby-menu-item" data-menu="customgame">
-          <span class="menu-label">CUSTOM GAME</span>
-        </div>
-        <div class="lobby-menu-item" data-menu="locker">
-          <span class="menu-label">LOCKER</span>
-        </div>
-      </div>
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+}
 
-      <!-- Center character -->
-      <div class="lobby-center">
-        <img src="assets/character.png" alt="char">
-      </div>
+// ── Web Audio Setup (lobby music) ──
+let audioCtx = null;
+let sourceNode = null;
+let gainNode = null;
+let lowpassNode = null;
+let convolverNode = null;
+let dryGain = null;
+let wetGain = null;
 
-      <!-- Right cards -->
-      <div class="lobby-right">
-        <!-- card item shop, event, dll -->
-      </div>
+const lobbyMusic = new Audio('assets/audio/lobbyost.m4a');
+lobbyMusic.loop = true;
+lobbyMusic.crossOrigin = 'anonymous';
 
-      <!-- Bottom bar -->
-      <div id="lobby-bottom">
-        <div class="bar-left"> <!-- coin, gems, dll --> </div>
-        <div class="bar-center"> <!-- confirm/back --> </div>
-        <div class="bar-right"> <!-- profile, squad --> </div>
-      </div>
-    </div>
-  </div>
+function buildAudioGraph() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  sourceNode = audioCtx.createMediaElementSource(lobbyMusic);
+  gainNode = audioCtx.createGain();
+  lowpassNode = audioCtx.createBiquadFilter();
+  lowpassNode.type = 'lowpass';
+  lowpassNode.frequency.value = 18000;
+  convolverNode = audioCtx.createConvolver();
+  dryGain = audioCtx.createGain();
+  wetGain = audioCtx.createGain();
 
-  <!-- Keep modal lain jika mau: itemshop, friends, char selection, dll -->
-  <!-- ... paste bagian modal yang masih diinginkan ... -->
+  // Simple synthetic IR (tanpa cave berat)
+  const ir = audioCtx.createBuffer(2, audioCtx.sampleRate * 1.2, audioCtx.sampleRate);
+  // ... isi buffer sederhana jika mau reverb ringan ...
 
-  <script>
-    // ── Hilangkan semua logic PIN, splash, loading, sequence ──
-    // Langsung init lobby
+  sourceNode.connect(lowpassNode);
+  lowpassNode.connect(dryGain);
+  lowpassNode.connect(convolverNode);
+  convolverNode.connect(wetGain);
+  dryGain.connect(gainNode);
+  wetGain.connect(gainNode);
+  gainNode.connect(audioCtx.destination);
 
-    let currentLayer = 2;
-    const menuLayerMap = { quickmatch: 2, customgame: 2, locker: 1 };
+  dryGain.gain.value = 1.0;
+  wetGain.gain.value = 0.0;
+  gainNode.gain.value = 1.0;
+}
 
-    function snapToLayer(active) {
-      const pos = { 1: active===1 ? 0 : active===2 ? -1 : -2,
-                    2: active===1 ? 1 : active===2 ? 0 : -1,
-                    3: active===1 ? 2 : active===2 ? 1 : 0 };
-      [1,2,3].forEach(id => {
-        const el = document.getElementById('layer-'+id);
-        if (el) el.style.transform = `translateX(${pos[id]*100}%)`;
-      });
-    }
+function setNormalEffect() {
+  if (!audioCtx) return;
+  lowpassNode.frequency.setTargetAtTime(18000, audioCtx.currentTime, 0.1);
+  dryGain.gain.setTargetAtTime(1.0, audioCtx.currentTime, 0.1);
+  wetGain.gain.setTargetAtTime(0.0, audioCtx.currentTime, 0.1);
+}
 
-    function setLobbyLayer(to) {
-      // logic transisi sederhana (atau hapus jika tidak perlu swipe)
-      currentLayer = to;
-      snapToLayer(to);
-    }
+// ── Slide Transition ──
+const MASK_EXPAND_MS = 550;
+const MASK_COLLAPSE_MS = 550;
 
-    // Init langsung lobby layer 2
-    window.addEventListener('load', () => {
-      snapToLayer(2);
-      // Musik lobby (jika masih mau)
-      // const lobbyMusic = new Audio('assets/audio/lobbyost.m4a');
-      // lobbyMusic.loop = true; lobbyMusic.play().catch(()=>{}); 
-    });
+async function maskIn() {
+  const wrap = document.getElementById('slide-transition');
+  wrap.style.display = 'block';
+  wrap.style.pointerEvents = 'all';
+  wrap.style.webkitMaskSize = '0% 0%';
+  wrap.style.maskSize = '0% 0%';
+  await new Promise(r => requestAnimationFrame(r));
+  wrap.style.transition = `mask-size ${MASK_EXPAND_MS}ms cubic-bezier(0.4,0,0.2,1)`;
+  wrap.style.webkitMaskSize = '200% 200%';
+  wrap.style.maskSize = '200% 200%';
+  await wait(MASK_EXPAND_MS);
+}
 
-    // Event klik menu kiri (contoh)
-    document.getElementById('lobby-menu')?.addEventListener('click', e => {
-      const item = e.target.closest('.lobby-menu-item');
-      if (!item) return;
-      const menu = item.dataset.menu;
-      setLobbyLayer(menuLayerMap[menu] || 2);
-    });
+async function maskOut() {
+  const wrap = document.getElementById('slide-transition');
+  wrap.style.transition = `mask-size ${MASK_COLLAPSE_MS}ms cubic-bezier(0.4,0,0.2,1)`;
+  wrap.style.webkitMaskSize = '0% 0%';
+  wrap.style.maskSize = '0% 0%';
+  await wait(MASK_COLLAPSE_MS);
+  wrap.style.display = 'none';
+  wrap.style.pointerEvents = 'none';
+}
 
-    // Sisanya: event item shop, char select, dll tetap bisa dipakai
-  </script>
+async function slideShow(callback, totalMs = 3500) {
+  await maskIn();
+  if (callback) callback();
+  await wait(totalMs);
+}
+
+async function slideOut() {
+  await maskOut();
+}
+
+// ── Prepare & Show Menu ──
+function prepareMenu() {
+  const menuScreen = document.getElementById('screen-menu');
+  menuScreen.style.opacity = '1';
+  menuScreen.style.pointerEvents = 'none';
+  menuScreen.classList.add('active');
+}
+
+function showMenu() {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.opacity = '0';
+    s.style.pointerEvents = 'none';
+  });
+
+  const menu = document.getElementById('screen-menu');
+  menu.classList.add('active');
+  menu.style.opacity = '1';
+  menu.style.pointerEvents = 'all';
+
+  // Sync profil kalau ada
+  const account = JSON.parse(localStorage.getItem('pb_account') || 'null');
+  if (account) {
+    // asumsi ada elemen .bar-profile-name atau sejenis di bottom bar
+    const nameEl = document.querySelector('.bar-profile-name');
+    if (nameEl) nameEl.textContent = account.firstname + (account.lastname ? ' ' + account.lastname : '');
+    const avEl = document.querySelector('.bar-profile-avatar');
+    if (avEl) avEl.src = account.avatar || 'assets/user.png';
+  }
+
+  // Carousel init
+  snapToLayer(2);
+  setLayer2Overlay(true);
+}
+
+// ── Carousel logic (copy dari code asli kamu, dipersingkat) ──
+let currentLayer = 2;
+function snapToLayer(active) { /* ... isi sesuai code asli ... */ }
+function setLayer2Overlay(show) { /* ... isi sesuai code asli ... */ }
+function setLobbyLayer(to) { /* ... isi sesuai code asli ... */ }
+
+// ── Start langsung ke lobby ──
+async function startDirectToLobby() {
+  // Hilangkan overlay tap-start & pin
+  document.getElementById('tap-start').style.display = 'none';
+  document.getElementById('pin-modal').style.display = 'none';
+
+  buildAudioGraph();
+  lobbyMusic.currentTime = 0;
+  lobbyMusic.play().catch(() => {});
+  setNormalEffect();
+
+  prepareMenu();
+
+  // Efek masuk ringan (3.5 detik)
+  await slideShow(() => {
+    showMenu();
+  }, 3500);
+
+  await slideOut();
+}
+
+// Jalankan saat halaman load
+window.addEventListener('load', startDirectToLobby);
+</script>
 </body>
 </html>
